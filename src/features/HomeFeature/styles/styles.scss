@@ -1,0 +1,16 @@
+.home {
+	background-color: #fff;
+	&__coverImage {
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		& > img {
+			max-width: 50%;
+			border-radius: 50%;
+		}
+	}
+
+	&__coverTitle {
+		font-size: 20%;
+	}
+}

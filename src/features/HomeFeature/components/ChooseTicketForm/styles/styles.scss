@@ -1,0 +1,74 @@
+.chooseTicketForm {
+	&__group {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-grow: row nowrap;
+	}
+
+	&__groupLocation {
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+	}
+
+	&__icon {
+		background-color: white;
+		position: absolute;
+		border-radius: 50%;
+		border: 1px solid #ccc;
+		padding: 8px 10px;
+		z-index: 1;
+
+		&-item {
+			color: #1780c3;
+		}
+	}
+
+	&__groupDatePicker {
+		padding: 5px 10px;
+		border: 1px solid #cccc;
+		border-radius: 10px;
+		margin: 0 10px;
+
+		height: 90px;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+	}
+
+	&__datePicker {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+
+		margin: 0 5px;
+
+		&.disable {
+			display: none;
+		}
+	}
+
+	&__title {
+		margin: 5px 10px 10px;
+	}
+
+	&__btn {
+		height: 90px;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+
+		& > button {
+			background-color: #1890ff;
+			border: solid 1px #1890ff;
+
+			color: white;
+		}
+	}
+}
+
+.ant-select-selector {
+	max-width: 150px;
+}

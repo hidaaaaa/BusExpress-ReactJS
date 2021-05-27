@@ -1,37 +1,45 @@
-import Layout, { Content } from 'antd/lib/layout/layout';
-import Sider from 'antd/lib/layout/Sider';
-import queryString from 'query-string';
-import React, { useEffect, useMemo, useState } from 'react';
-import { useHistory, useLocation } from 'react-router';
+import { Col, Row } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import locationAPI from '../../../../api/locationApi';
-import Infomation from '../../Components/Infomation/Infomation';
-import SeatMap from '../SeatMap/SeatMap';
+import Information from '../../Components/Infomation/Information';
+import SeatMap from '../../Components/SeatMap/SeatMap';
+import { pushListTransfer } from '../../TransferSlice';
+import './style/style.scss';
 
 function ListTicketPage({ queryParams }) {
-	const history = useHistory();
-	const location = useLocation();
-	const [listTrip, setListTrip] = useState([]);
-	console.log(queryParams);
+	const dispatch = useDispatch();
+	const [postList, setPostList] = useState([]);
+	const [loading, setLoading] = useState(true);
 	useEffect(() => {
 		(async () => {
 			try {
-				const tempParams = { ...queryParams };
-
-				delete tempParams.step;
-				const data = await locationAPI.getPostsOfTripByDate(tempParams);
-				setListTrip(data);
+				const data = await locationAPI.getPostsOfTripByDate(queryParams);
+				await setPostList(data);
+				const action = pushListTransfer(data);
+				dispatch(action);
 			} catch (error) {
 				console.log('false to fetch product list :', error);
 			}
-		})();
-	}, [queryParams]);
 
-	console.log(listTrip);
+			setLoading(false);
+		})();
+	}, [queryParams, dispatch]);
 
 	return (
 		<div className="listTicketPage">
-			<Infomation />
-			<SeatMap />
+			<Row gutter={{ sm: 8 }}>
+				<Col className="gutter-row" span={12}>
+					<div className="listTicketPage__item">
+						<Information listTrip={postList} />
+					</div>
+				</Col>
+				<Col className="gutter-row" span={12}>
+					<div className="listTicketPage__item">
+						<SeatMap />
+					</div>
+				</Col>
+			</Row>
 		</div>
 	);
 }

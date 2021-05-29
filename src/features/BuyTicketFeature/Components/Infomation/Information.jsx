@@ -1,30 +1,31 @@
 import { Select } from 'antd';
-import React, { useEffect, useState } from 'react';
-import locationAPI from '../../../../api/locationApi';
+import React, { useState } from 'react';
+import { formatDate } from '../../../../utils/formatDate';
 import './style/style.scss';
 const { Option } = Select;
-function Infomation({ listTrip = null }) {
-	const [trip, setTrip] = useState([]);
-	useEffect(() => {
-		(async () => {
-			try {
-				const data = await locationAPI.getAll();
-				await setTrip(data);
-			} catch (error) {
-				console.log('false to fetch  list transfer :', error);
-			}
-		})();
-	}, []);
-	console.log(trip);
-	const locate = trip?.filter((item) => item.MaTX === listTrip[0].MaTX)[0];
+function Infomation({ listTrip = null, onSubmit = null, date = null }) {
+	const [time, setTime] = useState('');
+
+	const handleChangeTime = async (value) => {
+		if (onSubmit) {
+			await onSubmit(value);
+		}
+
+		await setTime(value);
+	};
 
 	return (
 		<div className="information">
+			<div className="information__item date">
+				<span>{time}</span>
+
+				<span>{date}</span>
+			</div>
 			<div className="information__item">
 				<span>Giờ khởi hành </span>
-				<Select style={{ width: 120 }}>
-					{listTrip?.map((item) => (
-						<Option key={item.MaCX} value={item.MaCX}>
+				<Select style={{ width: 120 }} onChange={handleChangeTime}>
+					{listTrip?.map((item, index) => (
+						<Option key={index} value={item.GioDi}>
 							{item.GioDi}
 						</Option>
 					))}
@@ -32,11 +33,15 @@ function Infomation({ listTrip = null }) {
 			</div>
 			<div className="information__item">
 				<span>Bến Xe</span>
-				<span>
-					{/* <span>{locate.DiemDi}</span>
-					<span>&rArr;</span>
-					<span>{locate.DiemDen}</span> */}
-				</span>
+				<div>
+					<span>
+						<strong>TPHCM</strong>
+					</span>
+					<span> &rArr; </span>
+					<span>
+						<strong>RachGia</strong>
+					</span>
+				</div>
 			</div>
 		</div>
 	);

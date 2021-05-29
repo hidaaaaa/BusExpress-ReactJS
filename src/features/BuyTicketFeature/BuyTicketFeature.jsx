@@ -1,12 +1,4 @@
-import {
-	IdcardOutlined,
-	LoadingOutlined,
-	SearchOutlined,
-	SelectOutlined,
-	SmileOutlined,
-	SolutionOutlined,
-	WalletOutlined,
-} from '@ant-design/icons';
+import { IdcardOutlined, LoadingOutlined, SearchOutlined, SelectOutlined, WalletOutlined } from '@ant-design/icons';
 import { Steps } from 'antd';
 import Layout from 'antd/lib/layout/layout';
 import queryString from 'query-string';
@@ -47,8 +39,6 @@ function BuyTicketFeature(props) {
 			date: params.date || '',
 		};
 	}, [location.search]);
-
-	console.log(process);
 
 	return (
 		<Layout style={{ padding: '50px 50px', backgroundColor: '#fff' }}>

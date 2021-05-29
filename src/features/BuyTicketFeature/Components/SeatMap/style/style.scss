@@ -1,0 +1,68 @@
+.seatMap {
+	padding: 10px 40px;
+
+	&__row {
+		border: solid 1px #ccc;
+		border-radius: 5px;
+	}
+
+	&_col {
+	}
+
+	&__seat {
+		padding: 5px;
+		margin: 5px;
+		border-radius: 5px;
+		background-color: #def3ff;
+		width: 50%;
+		border: 1px solid #a7d0ed;
+
+		&.disable {
+			cursor: not-allowed;
+			background-color: #ccc;
+			border: none;
+		}
+
+		&.ant-tag-checkable-checked {
+			background-color: #fdede8;
+			color: #000;
+			border: 1px solid #f9c9ba;
+		}
+	}
+
+	&__seatStatuses {
+		.seatMap__seatStatus {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			margin-bottom: 5px;
+			margin-top: 5px;
+
+			&.left {
+				justify-content: flex-start;
+			}
+			&.right {
+				justify-content: flex-end;
+			}
+
+			& > div {
+				width: 10px;
+				height: 10px;
+				margin-right: 5px;
+
+				&.disable {
+					background-color: #cccccc;
+				}
+				&.active {
+					background-color: #def3ff;
+					border: 1px solid #a7d0ed;
+				}
+				&.select {
+					background-color: #fdede8;
+					border: 1px solid #f9c9ba;
+				}
+			}
+		}
+	}
+}

@@ -3,12 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import locationAPI from '../../../../api/locationApi';
 import cover_image from '../../../../assets/images/cover_image.png';
-import ChooseTicketForm from '../../components/ChooseTicketForm/ChooseTicketForm';
 import { formatDate } from '../../../../utils/formatDate';
-import { useDispatch } from 'react-redux';
-import { pushListTransfer } from '../../../BuyTicketFeature/TransferSlice';
+import ChooseTicketForm from '../../components/ChooseTicketForm/ChooseTicketForm';
 function MainPage(props) {
 	const history = useHistory();
+
 	const [listTrip, setListTrip] = useState([]);
 	useEffect(() => {
 		(async () => {
@@ -23,7 +22,7 @@ function MainPage(props) {
 
 	const handleChooseTicketFormSubmit = async ({ DiemDi, DiemDen, departureDate, returnDate }) => {
 		let tripid = listTrip[listTrip.findIndex((e) => e.DiemDi === DiemDi && e.DiemDen === DiemDen)].MaTX;
-		const date = formatDate(departureDate);
+		const date = formatDate(departureDate._d);
 
 		history.push(`/mua-ve?tripid=${tripid}&date=${date}&step=2`);
 	};

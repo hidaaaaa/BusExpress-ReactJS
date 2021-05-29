@@ -1,4 +1,4 @@
-import { Layout } from 'antd';
+import { Col, Layout, Row } from 'antd';
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import { Redirect, Route, Switch } from 'react-router';
 import './App.css';
@@ -10,15 +10,19 @@ function App() {
 	return (
 		<div className="App">
 			<Layout>
-				<Header />
+				<Row>
+					<Col md={{ span: 22, offset: 1 }} xxl={{ span: 14, offset: 5 }}>
+						<Header />
 
-				<Switch>
-					<Redirect from="/home" to="/" exact />
-					<Redirect from="/post-list/:pistId" to="/posts/:postId" exact />
+						<Switch>
+							<Redirect from="/home" to="/" exact />
+							<Redirect from="/post-list/:pistId" to="/posts/:postId" exact />
 
-					<Route path="/" component={HomeFeature} exact />
-					<Route path="/mua-ve" component={BuyTicketFeature} />
-				</Switch>
+							<Route path="/" component={HomeFeature} exact />
+							<Route path="/mua-ve" component={BuyTicketFeature} />
+						</Switch>
+					</Col>
+				</Row>
 			</Layout>
 		</div>
 	);

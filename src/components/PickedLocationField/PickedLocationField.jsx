@@ -7,9 +7,9 @@ const { Option } = Select;
 function PickedLocationField(props) {
 	const { form, name, label } = props;
 
-	const {
-		formState: { errors },
-	} = form;
+	// const {
+	// 	formState: { errors },
+	// } = form;
 
 	return (
 		<div className="box">

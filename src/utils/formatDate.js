@@ -1,13 +1,13 @@
 export function formatDate(departureDate) {
-	const date = departureDate.toDate();
-	const year = date.getFullYear();
-	let month = date.getMonth() + 1;
-	let dt = date.getDate();
-	if (dt < 10) {
-		dt = '0' + dt;
+	let day = departureDate.getDate();
+	let year = departureDate.getFullYear();
+	let month = departureDate.getMonth() + 1;
+	if (day < 10) {
+		day = '0' + day;
 	}
 	if (month < 10) {
 		month = '0' + month;
 	}
-	return year + '-' + month + '-' + dt;
+	console.log(year + '-' + month + '-' + day);
+	return year + '-' + month + '-' + day;
 }

@@ -1,0 +1,122 @@
+@import './assets/styles/all.scss';
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+
+.app {
+	min-height: 100vh;
+	text-align: center;
+	color: $primary-text-color;
+	background-color: $primary-color;
+}
+
+.layout {
+	height: 100vh;
+	display: contents !important;
+}
+
+/* Base */
+*,
+::before,
+::after {
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	font-family: 'Staatliches', cursive;
+	font-size: $normal-font-size;
+	font-weight: $font-medium;
+	background-color: $primary-color;
+	color: $primary-text-color;
+	line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+ul,
+p {
+	margin: 0;
+}
+
+h2,
+h3 {
+	font-weight: $font-semi-bold;
+}
+
+ul {
+	padding: 0;
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: $primary-text-color;
+}
+
+img {
+	max-height: 100%;
+	height: auto;
+	display: block;
+}
+
+section {
+	background-color: transparent !important;
+}
+
+button {
+	outline: none;
+	border: none;
+	background-color: transparent;
+}
+
+//mobile
+
+.body {
+	@include mobile {
+		$biggest-font-size: 4.5rem;
+		$h1-font-size: 2.25rem;
+		$h2-font-size: 1.5rem;
+		$h3-font-size: 1.25rem;
+		$normal-font-size: 1rem;
+		$small-font-size: 0.875rem;
+		$smaller-font-size: 0.813rem;
+	}
+
+	@include tablet {
+		$biggest-font-size: 4.5rem;
+		$h1-font-size: 2.25rem;
+		$h2-font-size: 1.5rem;
+		$h3-font-size: 1.25rem;
+		$normal-font-size: 1rem;
+		$small-font-size: 0.875rem;
+		$smaller-font-size: 0.813rem;
+	}
+
+	@include tabletAndDesktop {
+		$biggest-font-size: 4.5rem;
+		$h1-font-size: 2.25rem;
+		$h2-font-size: 1.5rem;
+		$h3-font-size: 1.25rem;
+		$normal-font-size: 1rem;
+		$small-font-size: 0.875rem;
+		$smaller-font-size: 0.813rem;
+	}
+}
+
+.overlays {
+	top: 0;
+	left: 0;
+	z-index: 1;
+	position: absolute;
+	background-color: rgb(18 18 18 / 50%);
+	width: 100vw;
+	height: 100vh;
+	display: none;
+
+	&.show {
+		display: inline-block;
+	}
+}

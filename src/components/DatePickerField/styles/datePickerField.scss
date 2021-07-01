@@ -1,0 +1,41 @@
+@import '../../../assets/styles/all.scss';
+
+.datePickerField {
+	background-color: $primary-text-color !important;
+	border: none;
+	min-width: 200px;
+	border-radius: 5px;
+	width: 100%;
+
+	@include largeDesktop {
+		margin: 0 1rem;
+		& > div > input {
+			font-size: 1.3rem !important;
+		}
+	}
+	@include smallDesktop {
+		margin: 0 0.85rem;
+		& > div > input {
+			font-size: 1.2rem !important;
+		}
+	}
+	@include tabletAndDesktop {
+		margin: 0 0.6rem;
+		& > div > input {
+			font-size: 1.2rem !important;
+		}
+	}
+
+	@include tablet {
+		margin: 0;
+		& > div > input {
+			font-size: 1.2rem !important;
+		}
+	}
+	@include mobile {
+		margin: 0;
+		& > div > input {
+			font-size: 1.2rem !important;
+		}
+	}
+}

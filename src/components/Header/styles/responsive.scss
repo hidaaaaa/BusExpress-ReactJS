@@ -1,0 +1,132 @@
+@mixin mobileHeader {
+	&__menu {
+		position: fixed;
+		right: -100%;
+		top: $header-height;
+		text-align: left;
+		transition: 0.4s;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		justify-content: space-between;
+		align-items: center;
+
+		background-color: $third-color;
+		height: 80vh;
+
+		& > ul {
+			&.bottom {
+				position: absolute;
+				bottom: 0;
+				display: table;
+				width: 100%;
+
+				& > li {
+					border-color: #464646 !important;
+					display: table-cell;
+					border-top: 1px solid;
+					padding: 1rem;
+					text-align: center;
+
+					&.header__globe {
+						border-right: 1px solid;
+						font-size: $small-font-size;
+						font-weight: $font-medium;
+
+						display: flex;
+						justify-content: center;
+						align-items: center;
+					}
+				}
+			}
+
+			&.top {
+				& > li {
+					padding: 1rem 2rem;
+				}
+			}
+		}
+	}
+}
+
+@mixin desktopHeader {
+	padding-left: 7.5%;
+	padding-right: 7.5%;
+	&__menu {
+		display: flex;
+		justify-content: space-between;
+
+		& > ul {
+			display: flex;
+
+			& > li {
+				height: 100%;
+
+				&.active {
+					border-bottom: solid 5px #0078f2;
+				}
+			}
+		}
+	}
+
+	&__toggle {
+		display: none;
+	}
+
+	&__user {
+		& > .user {
+			position: fixed;
+		}
+
+		& > .header__menu {
+			right: -1rem;
+			display: block;
+			top: -1000px;
+			position: relative;
+			background-color: #2a2a2a;
+			width: 100%;
+			height: auto;
+			transition: 0.4s;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+			& > ul {
+				flex-direction: column;
+
+				& > .title {
+					display: none;
+				}
+			}
+			&.show-menu {
+				top: $header-height + 0.75rem;
+			}
+		}
+	}
+
+	&__globe {
+		justify-content: flex-end !important;
+
+		& > .globe {
+			position: fixed;
+		}
+		& > .header__menu {
+			right: -1rem;
+			display: block;
+			top: -1000px;
+			position: relative;
+			background-color: #2a2a2a;
+			width: 100%;
+			height: auto;
+			transition: 0.4s;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+			& > ul {
+				flex-direction: column;
+
+				& > .title {
+					display: none;
+				}
+			}
+			&.show-menu {
+				top: $header-height + 0.75rem;
+			}
+		}
+	}
+}

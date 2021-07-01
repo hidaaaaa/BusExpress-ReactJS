@@ -8,6 +8,5 @@ export function formatDate(departureDate) {
 	if (month < 10) {
 		month = '0' + month;
 	}
-	console.log(year + '-' + month + '-' + day);
 	return year + '-' + month + '-' + day;
 }

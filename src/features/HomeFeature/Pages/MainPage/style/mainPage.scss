@@ -1,0 +1,24 @@
+@import '../../../../../assets/styles/all.scss';
+.home {
+	& > * {
+		padding-top: 3.25rem;
+		padding-bottom: 3.25rem;
+		padding-left: 10%;
+		padding-right: 10%;
+
+		height: calc(100vh + 3.25rem);
+
+		@include tablet {
+			padding-left: 2%;
+			padding-right: 2%;
+		}
+		@include mobile {
+			padding-left: 2%;
+			padding-right: 2%;
+		}
+		@include tabletAndDesktop {
+			padding-left: 2%;
+			padding-right: 2%;
+		}
+	}
+}

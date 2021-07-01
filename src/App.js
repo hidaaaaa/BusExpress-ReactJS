@@ -1,28 +1,25 @@
-import { Col, Layout, Row } from 'antd';
+import { Layout } from 'antd';
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
+import Footer from 'components/Footer/Footer';
 import { Redirect, Route, Switch } from 'react-router';
-import './App.css';
+import './App.scss';
 import Header from './components/Header/Header';
-import BuyTicketFeature from './features/BuyTicketFeature/BuyTicketFeature';
 import HomeFeature from './features/HomeFeature/HomeFeature';
 
 function App() {
 	return (
-		<div className="App">
-			<Layout>
-				<Row>
-					<Col md={{ span: 22, offset: 1 }} xxl={{ span: 14, offset: 5 }}>
-						<Header />
+		<div className="app">
+			<Layout className="layout">
+				<Header />
+				<div className="body">
+					<Switch>
+						<Redirect from="/" to="/home" exact />
+						<Redirect from="/post-list/:pistId" to="/posts/:postId" exact />
 
-						<Switch>
-							<Redirect from="/home" to="/" exact />
-							<Redirect from="/post-list/:pistId" to="/posts/:postId" exact />
-
-							<Route path="/" component={HomeFeature} exact />
-							<Route path="/mua-ve" component={BuyTicketFeature} />
-						</Switch>
-					</Col>
-				</Row>
+						<Route path="/home" component={HomeFeature} exact />
+					</Switch>
+				</div>
+				<Footer />
 			</Layout>
 		</div>
 	);

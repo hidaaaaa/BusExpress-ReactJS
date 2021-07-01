@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&display=swap');
+
+$mobile-width: 480px;
+$tablet-width: 768px;
+$desktop-width: 1024px;
+$largeDesktop-width: 1440px;
+
+$header-height: 3.25rem;
+
+/* font and typography */
+
+$second-font: '';
+$body-font: 'Oswald', sans-serif;
+$biggest-font-size: 2.5rem;
+$h1-font-size: 1.5rem;
+$h2-font-size: 1.25rem;
+$h3-font-size: 1.125rem;
+$normal-font-size: 0.938rem;
+$small-font-size: 0.813rem;
+$smaller-font-size: 0.75rem;
+
+/* font weight */
+$font-medium: 500;
+$font-semi-bold: 600;
+$font-bold: 700;
+
+/* margenes */
+$mb-1: 0.5rem;
+$mb-2: 1rem;
+$mb-3: 1.5rem;
+$mb-4: 2rem;
+$mb-5: 2.5rem;
+$mb-6: 3rem;
+
+/* z index */
+$z-normal: 1;
+$z-tooltip: 10;
+$z-fixed: 100;
+
+@mixin mobile {
+	@media (max-width: #{$mobile-width - 1px}) {
+		@content;
+	}
+}
+
+@mixin tablet {
+	@media (max-width: #{$tablet-width - 1px})  and (min-width: #{$mobile-width }) {
+		@content;
+	}
+}
+
+@mixin tabletAndDesktop {
+	@media (max-width: #{$desktop-width - 1px})  and (min-width: #{$tablet-width }) {
+		@content;
+	}
+}
+
+@mixin smallDesktop {
+	@media (min-width: #{$desktop-width }) and (max-width: #{$largeDesktop-width - 1px}) {
+		@content;
+	}
+}
+
+@mixin largeDesktop {
+	@media (min-width: #{$largeDesktop-width}) {
+		@content;
+	}
+}

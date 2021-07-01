@@ -1,0 +1,178 @@
+@import '../../../../../assets/styles/all.scss';
+
+.SelectDateForm {
+	align-items: center;
+	justify-content: center;
+
+	margin: 2rem 0;
+	position: relative;
+	@include boxShadow;
+
+	@include largeDesktop {
+		font-size: 1.5rem;
+		padding: 1rem;
+	}
+	@include smallDesktop {
+		font-size: 1.3rem;
+		padding: 0.8rem;
+	}
+	@include tabletAndDesktop {
+		font-size: 1rem;
+		padding: 0.7rem;
+		margin: 2rem auto;
+	}
+	@include tablet {
+		width: 85%;
+		padding: 0.7rem;
+		margin: 2rem auto;
+	}
+	@include mobile {
+		width: 85%;
+		padding: 0.7rem;
+		margin: 2rem auto;
+	}
+
+	background-color: rgba($color: $third-color, $alpha: 0.6);
+	border-radius: 10px;
+
+	& > * {
+		padding: 0.5rem;
+	}
+
+	&__title {
+		@include largeDesktop {
+			font-size: 1.75rem;
+		}
+		@include smallDesktop {
+			font-size: 1.5rem;
+		}
+		@include tabletAndDesktop {
+			font-size: 1.5rem;
+		}
+		@include tablet {
+			font-size: 1.75rem;
+		}
+		@include mobile {
+			font-size: 1.75rem;
+		}
+	}
+
+	&__group {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		@include tablet {
+			flex-direction: column;
+		}
+		@include mobile {
+			flex-direction: column;
+		}
+
+		& > .group {
+			&__item {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+
+				@include tablet {
+					margin-bottom: 1rem;
+					flex-direction: column;
+					width: 85%;
+				}
+				@include mobile {
+					margin-bottom: 1rem;
+					flex-direction: column;
+					width: 85%;
+				}
+
+				& > * {
+					@include tablet {
+						padding: 0.3rem;
+					}
+					@include mobile {
+						padding: 0.3rem;
+					}
+				}
+
+				& > .icon {
+					transition: transform 1s;
+
+					&:hover {
+						color: $third-button-color;
+						transform: rotate(180deg) translateZ(0);
+						cursor: pointer;
+					}
+				}
+			}
+		}
+	}
+
+	&__btn {
+		& > button {
+			width: 100%;
+			@include largeDesktop {
+				font-size: 1.75rem;
+				padding: 1rem;
+				&.active {
+					@include animated-btn($third-button-color, $primary-text-color, $third-button-color, 10px, x);
+				}
+				&.disable {
+					background-color: #f37862;
+					border-radius: 10px;
+					cursor: not-allowed;
+				}
+			}
+			@include smallDesktop {
+				font-size: 1.5rem;
+				padding: 0.7rem;
+				&.active {
+					@include animated-btn($third-button-color, $primary-text-color, $third-button-color, 10px, x);
+				}
+				&.disable {
+					background-color: #f37862;
+					border-radius: 10px;
+					cursor: not-allowed;
+				}
+			}
+			@include tabletAndDesktop {
+				font-size: 1.3rem;
+				padding: 0.5rem;
+				&.active {
+					@include animated-btn($third-button-color, $primary-text-color, $third-button-color, 5px, x);
+				}
+				&.disable {
+					background-color: #f37862;
+					border-radius: 5px;
+					cursor: not-allowed;
+				}
+			}
+			@include tablet {
+				width: 85%;
+				font-size: 1.5rem;
+				padding: 0.5rem;
+				&.active {
+					@include animated-btn($third-button-color, $primary-text-color, $third-button-color, 5px, x);
+				}
+				&.disable {
+					background-color: #f37862;
+					border-radius: 5px;
+					cursor: not-allowed;
+				}
+			}
+			@include mobile {
+				width: 85%;
+				font-size: 1.5rem;
+				padding: 0.5rem;
+				&.active {
+					@include animated-btn($third-button-color, $primary-text-color, $third-button-color, 5px, x);
+				}
+				&.disable {
+					background-color: #f37862;
+					border-radius: 5px;
+					cursor: not-allowed;
+				}
+			}
+		}
+	}
+}

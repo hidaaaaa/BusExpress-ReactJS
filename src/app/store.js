@@ -1,8 +1,7 @@
-import transferSlice from '../features/BuyTicketFeature/TransferSlice';
 const { configureStore } = require('@reduxjs/toolkit');
 
 const rootReducer = {
-	transfer: transferSlice,
+	transfer: 1,
 };
 
 const store = configureStore({

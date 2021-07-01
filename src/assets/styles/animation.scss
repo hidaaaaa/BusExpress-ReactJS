@@ -1,0 +1,56 @@
+@import './colors.scss';
+
+@mixin animated-btn($color1, $color2, $color3, $border-radius, $var) {
+	position: relative;
+	z-index: 2;
+	cursor: pointer;
+	transition: color 0.4s linear;
+	border-radius: $border-radius;
+
+	&::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		border-radius: $border-radius;
+
+		background-color: $color1;
+		z-index: -1;
+		transition: transform 0.5s;
+		transform-origin: 0 0;
+		transition-timing-function: cubic-bezier(0.5, 1.6, 0.4, 0.7);
+
+		@if $var == x {
+			transform: scaleX(1);
+		} @else {
+			transform: scaleY(1);
+		}
+	}
+
+	&::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		border-radius: $border-radius;
+
+		background-color: $color2;
+		z-index: -1;
+	}
+
+	&:hover {
+		color: $color3;
+
+		&::after {
+			@if $var == x {
+				transform: scaleX(0);
+			} @else {
+				transform: scaleY(0);
+			}
+		}
+	}
+}

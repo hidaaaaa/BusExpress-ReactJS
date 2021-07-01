@@ -1,0 +1,338 @@
+@import '../../../../../../../assets/styles/all.scss';
+.gridBreaker {
+	background-size: cover;
+	background-position: center;
+
+	@include largeDesktop {
+		background-image: url('../../../../../../../assets/images/desktop.svg');
+	}
+	@include smallDesktop {
+		background-image: url('../../../../../../../assets/images/desktop.svg');
+	}
+	@include tabletAndDesktop {
+		background-image: url('../../../../../../../assets/images/tablet.svg');
+	}
+	@include tablet {
+		background-image: url('../../../../../../../assets/images/tablet.svg');
+	}
+	@include mobile {
+		background-image: url('../../../../../../../assets/images/mobile.svg');
+	}
+
+	&__list {
+		display: flex;
+		justify-content: space-between;
+
+		margin: auto 0;
+		align-items: center;
+		height: 100%;
+
+		&.list1 {
+			& > * {
+				width: 100%;
+				@include tablet {
+					width: 100%;
+				}
+				@include mobile {
+					width: 100%;
+				}
+			}
+		}
+
+		&.list2 {
+			& > * {
+				width: 50%;
+				@include tablet {
+					width: 100%;
+				}
+				@include mobile {
+					width: 100%;
+				}
+			}
+		}
+
+		&.list3 {
+			& > * {
+				width: 33.3333333333%;
+				@include tablet {
+					width: 100%;
+				}
+				@include mobile {
+					width: 100%;
+				}
+			}
+		}
+
+		&.list4 {
+			& > * {
+				width: 25%;
+				@include tablet {
+					width: 100%;
+				}
+				@include mobile {
+					width: 100%;
+				}
+			}
+		}
+	}
+
+	&__item {
+		margin: 0.5rem;
+		@include animated-btn($button-color, rgba($color: $third-color, $alpha: 0.6), $primary-text-color, 10px, y);
+		@include boxShadow;
+
+		@include tablet {
+			width: 85% !important;
+			border: 1px solid $third-color;
+			border-radius: 10px;
+			margin: 0;
+		}
+		@include mobile {
+			width: 85% !important;
+			border: 1px solid $third-color;
+			border-radius: 10px;
+			margin: 0;
+		}
+		& > .container {
+			&__image {
+				& > img {
+					width: 100%;
+				}
+
+				& > div {
+					width: 100%;
+					& > * {
+						width: 100%;
+
+						@include largeDesktop {
+							height: 250px;
+						}
+						@include smallDesktop {
+							height: 170px;
+						}
+						@include tabletAndDesktop {
+							height: 140px;
+						}
+						@include tablet {
+							height: 220px;
+						}
+						@include mobile {
+							height: 150px;
+						}
+						& > svg {
+							width: 100%;
+							object-fit: cover;
+						}
+					}
+				}
+			}
+
+			&__info {
+				padding: 0 2rem;
+				margin-top: 1rem;
+				display: flex;
+				flex-direction: column;
+				flex: 1 1;
+
+				& > .information {
+					&__title {
+						text-align: start;
+						line-height: initial;
+					}
+
+					&__discription {
+						text-align: start;
+						line-height: initial;
+						margin-top: 1rem;
+					}
+
+					&__price {
+						display: flex;
+						justify-content: flex-start;
+						align-items: center;
+						margin-top: auto;
+
+						& > * {
+							margin-right: 0.5rem;
+						}
+
+						& > .price {
+							&__percent {
+								font-size: 0.7rem;
+								background-color: $button-color;
+								padding: 0.2rem;
+								border-radius: 5px;
+							}
+						}
+					}
+				}
+
+				// responsive
+
+				@include largeDesktop {
+					height: 220px;
+					padding: 0 2rem;
+					& > .information {
+						&__title {
+							font-size: 1.75rem;
+						}
+
+						&__discription {
+							font-size: $normal-font-size;
+						}
+
+						&__price {
+							margin-bottom: 1rem;
+							font-size: 1.2rem;
+
+							& > * {
+								margin-right: 0.5rem;
+							}
+
+							& > .price {
+								&__percent {
+									font-size: 0.7rem;
+								}
+							}
+						}
+					}
+				}
+				@include smallDesktop {
+					height: 220px;
+					padding: 0 2rem;
+					& > .information {
+						&__title {
+							font-size: 1.75rem;
+						}
+
+						&__discription {
+							font-size: $normal-font-size;
+						}
+
+						&__price {
+							margin-bottom: 1rem;
+							font-size: 1rem;
+							& > * {
+								margin-right: 0.5rem;
+							}
+
+							& > .price {
+								&__percent {
+									font-size: 0.7rem;
+								}
+							}
+						}
+					}
+				}
+
+				@include tabletAndDesktop {
+					height: 160px;
+					padding: 0 1rem;
+					& > .information {
+						&__title {
+							font-size: 1.5rem;
+						}
+
+						&__discription {
+							font-size: 0.7rem;
+						}
+
+						&__price {
+							margin-bottom: 0.75rem;
+							font-size: 0.8rem;
+
+							& > * {
+								margin-right: 0.25rem;
+							}
+
+							& > .price {
+								&__percent {
+									font-size: 0.7rem;
+								}
+							}
+						}
+					}
+				}
+
+				@include tablet {
+					color: $primary-text-color;
+					height: 200px;
+					padding: 0 1rem;
+					& > .information {
+						&__title {
+							font-size: 2rem;
+						}
+
+						&__discription {
+							font-size: 1rem;
+						}
+
+						&__price {
+							margin-bottom: 0.75rem;
+							font-size: 1.25rem;
+
+							& > * {
+								margin-right: 0.25rem;
+							}
+
+							& > .price {
+								&__percent {
+									font-size: 1rem;
+								}
+							}
+						}
+					}
+				}
+				@include mobile {
+					color: $primary-text-color;
+					height: 200px;
+					padding: 0 1rem;
+					& > .information {
+						&__title {
+							font-size: 1.75rem;
+						}
+
+						&__discription {
+							font-size: 0.9rem;
+						}
+
+						&__price {
+							margin-bottom: 0.75rem;
+							font-size: 1rem;
+
+							& > * {
+								margin-right: 0.25rem;
+							}
+
+							& > .price {
+								&__percent {
+									font-size: 0.9rem;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	& > .desktop {
+		@include tablet {
+			display: none;
+		}
+		@include mobile {
+			display: none;
+		}
+	}
+	& > .mobile {
+		@include tabletAndDesktop {
+			display: none;
+		}
+		@include smallDesktop {
+			display: none;
+		}
+		@include largeDesktop {
+			display: none;
+		}
+	}
+}

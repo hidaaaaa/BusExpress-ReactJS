@@ -1,0 +1,94 @@
+@import '../../../assets/styles/all.scss';
+
+.box {
+	vertical-align: middle;
+	border-radius: 10px;
+
+	width: 100%;
+
+	@include largeDesktop {
+		padding: 10px;
+		margin: 10px;
+	}
+	@include smallDesktop {
+		padding: 7px;
+		margin: 7px;
+	}
+	@include tabletAndDesktop {
+		padding: 7px;
+		margin: 7px;
+	}
+	@include tablet {
+		padding: 5px;
+		margin: 5px;
+	}
+	@include mobile {
+		padding: 5px;
+		margin: 5px;
+	}
+
+	@include animated-btn($button-color, $second-button-color, $primary-text-color, 10px, y);
+
+	&.disable {
+		color: $second-text-color !important;
+		@include animated-btn($second-button-color, $second-button-color, $second-text-color, 10px, y);
+
+		cursor: not-allowed;
+	}
+
+	&__title {
+		@include largeDesktop {
+			padding: 10px;
+		}
+		@include smallDesktop {
+			padding: 7px;
+		}
+		@include tabletAndDesktop {
+			padding: 7px;
+		}
+		@include tablet {
+			font-size: 1.5rem;
+			padding: 7px;
+			margin-bottom: 1rem;
+		}
+		@include mobile {
+			font-size: 1.5rem;
+			padding: 7px;
+			margin-bottom: 1rem;
+		}
+	}
+
+	&__select {
+		background-color: $primary-text-color;
+
+		border-radius: 10px;
+
+		@include largeDesktop {
+			min-width: 200px;
+			font-size: 1.5rem;
+		}
+		@include smallDesktop {
+			min-width: 175px;
+			font-size: 1.3rem;
+		}
+		@include tabletAndDesktop {
+			min-width: 150px;
+			font-size: 1rem;
+		}
+		@include tablet {
+			width: 85%;
+			font-size: 1rem;
+			margin-bottom: 0.5rem;
+		}
+		@include mobile {
+			width: 85%;
+			font-size: 1rem;
+			margin-bottom: 0.5rem;
+		}
+	}
+
+	&__option {
+		font-size: 1.2rem;
+		border-radius: 10px;
+	}
+}

@@ -5,6 +5,7 @@ import './styles/styles.scss';
 
 function HomeFeature(props) {
 	const match = useRouteMatch();
+
 	return (
 		<Switch>
 			<Route path={match.url} exact component={MainPage} />

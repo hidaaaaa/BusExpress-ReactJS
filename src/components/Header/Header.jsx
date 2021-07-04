@@ -39,8 +39,8 @@ function Header(props) {
 							Home
 						</Link>
 					</li>
-					<li className={location.pathname.search('/buy') > -1 ? 'active' : ''}>
-						<Link to="/buy" className="header__link ">
+					<li className={location.pathname.search('/buy-ticket') > -1 ? 'active' : ''}>
+						<Link to="/buy-ticket" className="header__link ">
 							buy ticket
 						</Link>
 						<div className="choosen"></div>

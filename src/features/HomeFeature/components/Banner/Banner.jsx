@@ -10,10 +10,6 @@ function Banner({ animationBanner, onSubmit = null, loading = true }) {
 		}
 	};
 
-	// const handleSubmit = ({ DiemDi, DiemDen, departureDate, returnDate }) => {
-	// 	let tripid = listTrip[listTrip.findIndex((e) => e.DiemDi === DiemDi && e.DiemDen === DiemDen)].MaTX;
-	// 	const date = formatDate(departureDate._d);
-	// };
 	return (
 		<div className="banner" id="booking">
 			<div className={`banner__info info ${animationBanner ? 'animation' : ''}`}>
@@ -31,12 +27,8 @@ function Banner({ animationBanner, onSubmit = null, loading = true }) {
 					<SelectDateForm onSubmit={handleSubmit} loading={loading} />
 				</div>
 			</div>
-			{/* <div className={`banner__img ${animationBanner ? 'animation' : ''}`}>
-				<img src={banner} alt="" />
-			</div> */}
 		</div>
 	);
 }
 
 export default Banner;
-//onSubmit={handleSubmit} loading={loading}

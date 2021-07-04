@@ -1,0 +1,38 @@
+@import '../../../../../assets/styles/all.scss';
+
+.processBar {
+	align-items: center;
+	margin: 2rem auto;
+	width: 85%;
+}
+
+.buyPage {
+	background-image: url('../../../../../assets/images/desktop.svg');
+
+	background-size: cover;
+	background-position: center;
+
+	padding-top: 5rem;
+	padding-bottom: 3.25rem;
+	padding-left: 10%;
+	padding-right: 10%;
+
+	@include tablet {
+		padding-left: 2%;
+		padding-right: 2%;
+	}
+	@include mobile {
+		padding-left: 2%;
+		padding-right: 2%;
+	}
+	@include tabletAndDesktop {
+		padding-left: 2%;
+		padding-right: 2%;
+	}
+
+	&__container {
+		background-color: rgba($color: $third-color, $alpha: 0.6);
+		padding: 2rem 5%;
+		border-radius: 10px;
+	}
+}

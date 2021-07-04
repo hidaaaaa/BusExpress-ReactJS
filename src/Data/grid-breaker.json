@@ -1,0 +1,38 @@
+[
+	{
+		"id": "1",
+		"createdAt": "2021-06-07T22:47:40.990Z",
+		"title": "SUPERIOR CUSTOMER SERVICE",
+		"mainImage": "https://i.ibb.co/8xDg8q0/service-01.jpg",
+		"discription": "We put our experience and relationships to good use and are available to solve your travel issues.",
+		"price": {
+			"type": "none",
+			"oldPrice": "0",
+			"salePrice": "0"
+		}
+	},
+	{
+		"id": "2",
+		"createdAt": "2021-06-08T07:01:51.891Z",
+		"title": "LOWEST PRICES",
+		"mainImage": "https://i.ibb.co/xCmWpD0/S1-ash-01.jpg",
+		"discription": "We always give you the lowest price with the best partner offers",
+		"price": {
+			"type": "none",
+			"oldPrice": "0",
+			"salePrice": "0"
+		}
+	},
+	{
+		"id": "3",
+		"createdAt": "2021-06-07T10:16:19.758Z",
+		"title": "UNMATCHED BENEFITS",
+		"mainImage": "https://i.ibb.co/VTYbMWh/S1-Present-01.jpg",
+		"discription": "We take care of your travel beyond ticketing by providing you with innovative and unique benefits.",
+		"price": {
+			"type": "none",
+			"oldPrice": "0",
+			"salePrice": "0"
+		}
+	}
+]

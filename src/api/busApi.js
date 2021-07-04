@@ -12,6 +12,13 @@ const busApi = {
 
 		return productList;
 	},
+	async getPostByDateAndTime(params) {
+		const newParams = { ...params };
+
+		const productList = await axiosClient.get('/m/posts', { params: newParams });
+
+		return productList;
+	},
 };
 
 export default busApi;

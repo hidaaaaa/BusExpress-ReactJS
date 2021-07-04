@@ -1,52 +1,21 @@
+import { notification } from 'antd';
 import Layout from 'antd/lib/layout/layout';
+import Aos from 'aos';
+import busApi from 'api/busApi';
+import Loading from 'components/Loading/Loading';
+import data from 'Data/grid-breaker.json';
 import Banner from 'features/HomeFeature/components/Banner/Banner';
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { formatDate } from 'utils/formatDate';
 import GridBreaker from './Component/GridBreaker/GridBreaker';
 import './style/mainPage.scss';
-import Aos from 'aos';
-import { useHistory } from 'react-router-dom';
-import busApi from 'api/busApi';
-import { formatDate } from 'utils/formatDate';
-import Loading from 'components/Loading/Loading';
 
 function MainPage(props) {
 	const [animationBanner, setAnimationBanner] = useState(false);
 	const history = useHistory();
 	const [loading, setLoading] = useState(true);
-	const [listTrip, setListTrip] = useState([]);
-	const [data, setData] = useState([]);
-	useEffect(() => {
-		Aos.init({ duration: 2000 });
-	}, []);
-
-	useEffect(() => {
-		(async () => {
-			try {
-				const data = await busApi.getAll();
-				setListTrip(data);
-				setLoading(false);
-			} catch (error) {
-				console.log('false to fetch  list transfer :', error);
-			}
-
-			fetch('https://60bf294c320dac0017be490f.mockapi.io/grid-breaker')
-				.then((respone) => {
-					if (respone.ok) {
-						return respone.json();
-					}
-					throw respone;
-				})
-				.then((data) => {
-					setData(data);
-				})
-				.catch((error) => {
-					console.log(error);
-				})
-				.finally(() => {
-					setLoading(false);
-				});
-		})();
-	}, []);
+	const [buses, setBuses] = useState([]);
 
 	const getOffset = () => {
 		if (window.pageYOffset < 100) {
@@ -55,6 +24,21 @@ function MainPage(props) {
 			setAnimationBanner(false);
 		}
 	};
+	useEffect(() => {
+		Aos.init({ duration: 2000 });
+	}, []);
+
+	useEffect(() => {
+		(async () => {
+			try {
+				const data = await busApi.getAll();
+				setBuses(data);
+				setLoading(false);
+			} catch (error) {
+				console.log('false to fetch  list transfer :', error);
+			}
+		})();
+	}, []);
 
 	useEffect(() => {
 		document.addEventListener('scroll', getOffset);
@@ -63,14 +47,35 @@ function MainPage(props) {
 		};
 	}, []);
 
-	const handleSubmit = ({ DiemDi, DiemDen, departureDate }) => {
-		console.log(DiemDen);
-		let tripid = listTrip[listTrip.findIndex((e) => e.DiemDi === DiemDi && e.DiemDen === DiemDen)].MaTX;
+	const handleSubmit = async ({ DiemDi, DiemDen, departureDate }) => {
+		const index = buses.findIndex((e) => e.DiemDi === DiemDi && e.DiemDen === DiemDen);
+		if (index < 0) {
+			return notification.error({
+				message: 'Error',
+				description: 'Cant find the',
+			});
+		}
+		let tripid = buses[buses.findIndex((e) => e.DiemDi === DiemDi && e.DiemDen === DiemDen)].MaTX;
 		const date = formatDate(departureDate._d);
+		const queryParams = {
+			tripid: tripid,
+			date: date,
+		};
+
+		const listTrip = await busApi.getPostsOfTripByDate(queryParams);
+
+		if (listTrip.length < 1) {
+			return notification.error({
+				message: 'Error',
+				description: 'Cant find t',
+			});
+		} else {
+			history.push(`/home/buy?tripid=${tripid}&date=${date}&step=1`);
+		}
 	};
 
 	if (loading) {
-		return <Loading />;
+		return <Loading text="loading..." />;
 	}
 
 	return (

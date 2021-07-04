@@ -1,4 +1,6 @@
-import { Layout } from 'antd';
+import { faArrowCircleUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { BackTop, Layout } from 'antd';
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import Footer from 'components/Footer/Footer';
 import { Redirect, Route, Switch } from 'react-router';
@@ -9,6 +11,11 @@ import HomeFeature from './features/HomeFeature/HomeFeature';
 function App() {
 	return (
 		<div className="app">
+			<BackTop>
+				<div className="backtop">
+					<FontAwesomeIcon icon={faArrowCircleUp} />
+				</div>
+			</BackTop>
 			<Layout className="layout">
 				<Header />
 				<div className="body">
@@ -16,7 +23,7 @@ function App() {
 						<Redirect from="/" to="/home" exact />
 						<Redirect from="/post-list/:pistId" to="/posts/:postId" exact />
 
-						<Route path="/home" component={HomeFeature} exact />
+						<Route path="/home" component={HomeFeature} />
 					</Switch>
 				</div>
 				<Footer />

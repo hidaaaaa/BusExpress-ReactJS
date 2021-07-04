@@ -1,0 +1,200 @@
+@import '../../../../../../../assets/styles/all.scss';
+
+.listTicketPage {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-around;
+
+	@include tablet {
+		flex-direction: column;
+		align-items: center;
+	}
+	@include mobile {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	&__information {
+		text-align: left;
+		width: 30%;
+		padding: 2rem;
+		margin-bottom: 2rem;
+
+		@include smallDesktop {
+			width: 40%;
+		}
+		@include tabletAndDesktop {
+			width: 45%;
+		}
+		@include tablet {
+			width: 90%;
+		}
+		@include mobile {
+			width: 90%;
+		}
+
+		@include animated-btn($button-color, $second-button-color, $primary-text-color, 10px, y);
+
+		& > .information {
+			&__date {
+				font-size: 1.6rem;
+
+				@include smallDesktop {
+					font-size: 1.3rem;
+				}
+				@include tabletAndDesktop {
+					font-size: 1rem;
+				}
+			}
+
+			&__location {
+				font-size: 2.2rem;
+				padding-bottom: 1rem;
+
+				@include smallDesktop {
+					font-size: 2rem;
+				}
+				@include tabletAndDesktop {
+					font-size: 1.5rem;
+				}
+				@include mobile {
+					font-size: 1.2rem;
+				}
+
+				& > svg {
+					margin: 0 0.5rem;
+					font-size: 2rem;
+
+					@include smallDesktop {
+						font-size: 1.5rem;
+					}
+					@include tabletAndDesktop {
+						font-size: 1.2rem;
+					}
+					@include mobile {
+						font-size: 1rem;
+					}
+				}
+			}
+
+			&__time {
+				& > .selectDate {
+					font-size: 1.6rem;
+					width: 100%;
+					background-color: $primary-text-color;
+					border-radius: 5px;
+
+					@include smallDesktop {
+						font-size: 1.2rem;
+					}
+					@include tabletAndDesktop {
+						font-size: 1.2rem;
+					}
+					@include mobile {
+						font-size: 1rem;
+					}
+				}
+			}
+		}
+	}
+
+	&__seatMap {
+		width: 40%;
+
+		background-color: $primary-text-color;
+		color: $primary-color;
+		border-radius: 10px;
+		padding: 1rem 0;
+		@include smallDesktop {
+			padding: 0.5rem 0;
+		}
+		@include tabletAndDesktop {
+			padding: 0.5rem 0;
+		}
+		@include tablet {
+			width: 90%;
+		}
+		@include mobile {
+			width: 90%;
+		}
+
+		& > .seatMap {
+			&__title {
+				font-size: 2rem;
+
+				@include smallDesktop {
+					font-size: 1.7rem;
+				}
+				@include tabletAndDesktop {
+					font-size: 1.5rem;
+				}
+			}
+			&__row {
+				margin: 0 auto;
+				width: 50%;
+				border: 1px solid black;
+				border-radius: 10px;
+				@include smallDesktop {
+					width: 60%;
+				}
+				@include tabletAndDesktop {
+					width: 60%;
+				}
+
+				@include tablet {
+					width: 90%;
+				}
+				@include mobile {
+					width: 90%;
+				}
+
+				& > .row {
+					&__item {
+						& > .item {
+							&__seat {
+								font-size: 1.2rem;
+								padding: 0.5rem;
+								margin: 0.4rem;
+								color: $primary-text-color;
+								@include animated-btn($button-color, $primary-text-color, $button-color, 5px, x);
+
+								@include smallDesktop {
+									font-size: 1rem;
+									padding: 0.5rem;
+									margin: 0.2rem;
+								}
+								@include tabletAndDesktop {
+									font-size: 0.8rem;
+									padding: 0.5rem;
+									margin: 0.2rem;
+								}
+								@include tablet {
+									font-size: 1rem;
+									padding: 0.8rem;
+									margin: 0.3rem;
+								}
+
+								@include mobile {
+									font-size: 1rem;
+									padding: 0.8rem;
+									margin: 0.3rem;
+								}
+
+								&.disable {
+									color: black !important;
+									cursor: not-allowed !important;
+									@include animated-btn(#ccc, #ccc, black, 5px, y);
+								}
+
+								&.ant-tag-checkable-checked {
+									@include animated-btn($third-button-color, $primary-text-color, $third-button-color, 5px, x);
+									border: none;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

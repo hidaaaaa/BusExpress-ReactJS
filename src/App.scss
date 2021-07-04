@@ -120,3 +120,18 @@ button {
 		display: inline-block;
 	}
 }
+
+.backtop {
+	font-size: 2em;
+	//padding: 2rem;
+	background-color: white;
+	width: 2.5rem;
+	height: 2.5rem;
+	@include boxShadow;
+	color: $primary-text-color;
+
+	@include animated-btn($third-button-color, $primary-text-color, $third-button-color, 50%, y);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}

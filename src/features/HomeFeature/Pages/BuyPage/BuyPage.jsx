@@ -4,7 +4,7 @@ import busApi from 'api/busApi';
 import Loading from 'components/Loading/Loading';
 import queryString from 'query-string';
 import React, { useEffect, useMemo, useState } from 'react';
-import { Route, Switch, useLocation, useRouteMatch } from 'react-router-dom';
+import { Link, Route, Switch, useLocation, useRouteMatch } from 'react-router-dom';
 import ListTicketPage from './Page/ListTicketPage/ListTicketPage';
 import './style/buyPage.scss';
 
@@ -73,6 +73,12 @@ function BuyPage(props) {
 						</Route>
 					)}
 				</Switch>
+
+				<div className="button">
+					<div className="button__prev">Back</div>
+
+					<div className="button__next">Next</div>
+				</div>
 			</div>
 		</Layout>
 	);

@@ -4,6 +4,7 @@ import { Col, notification, Row, Select } from 'antd';
 import CheckableTag from 'antd/lib/tag/CheckableTag';
 import busApi from 'api/busApi';
 import React, { useEffect, useState } from 'react';
+import LoadingSeat from './LoadingSeat';
 import './style/listTicketPage.scss';
 
 const { Option } = Select;
@@ -14,7 +15,6 @@ function ListTicketPage({ listTrip, buses, queryParams }) {
 	const [post, setPost] = useState([]);
 
 	const [loading, setLoading] = useState(true);
-
 	let tagsData = [...post];
 
 	useEffect(() => {
@@ -50,9 +50,11 @@ function ListTicketPage({ listTrip, buses, queryParams }) {
 				},
 			]);
 		} else {
+			console.log(selectedTags[index].tag);
 			const nextSelectedTags = checked
 				? [...selectedTags[index].tag, tag]
-				: selectedTags[index].tag.filter((t) => t !== tag);
+				: selectedTags[index].tag.filter((t) => t.code !== tag.code);
+
 			if (nextSelectedTags.length === 4) {
 				return notification.open({
 					message: 'Lỗi',
@@ -64,16 +66,9 @@ function ListTicketPage({ listTrip, buses, queryParams }) {
 				temp[index].tag = nextSelectedTags;
 
 				setSelectedTags(temp);
-				// const action = getListTicket({
-				// 	time: time,
-				// 	tickets: nextSelectedTags,
-				// });
-				// dispatch(action);
 			}
 		}
 	};
-
-	console.log(selectedTags);
 
 	return (
 		<div className="listTicketPage">
@@ -106,7 +101,7 @@ function ListTicketPage({ listTrip, buses, queryParams }) {
 				<div className="seatMap__title">SEAT MAP</div>
 
 				{loading ? (
-					<div> loading </div>
+					<LoadingSeat />
 				) : (
 					<>
 						<Row className="seatMap__row row">

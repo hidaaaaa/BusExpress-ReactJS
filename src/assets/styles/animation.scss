@@ -24,8 +24,12 @@
 
 		@if $var == x {
 			transform: scaleX(1);
-		} @else {
+		} @else if $var == y {
 			transform: scaleY(1);
+		} @else if $var == x-rotate {
+			transform: scaleX(0);
+		} @else if $var == y-rotate {
+			transform: scaleY(0);
 		}
 	}
 
@@ -48,8 +52,12 @@
 		&::after {
 			@if $var == x {
 				transform: scaleX(0);
-			} @else {
+			} @else if $var == y {
 				transform: scaleY(0);
+			} @else if $var == x-rotate {
+				transform: scaleX(1);
+			} @else if $var == y-rotate {
+				transform: scaleY(1);
 			}
 		}
 	}

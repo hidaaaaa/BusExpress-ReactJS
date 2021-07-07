@@ -7,7 +7,7 @@
 }
 
 .buyPage {
-	background-image: url('../../../../../assets/images/desktop.svg');
+	background-image: url('../../../../../assets/images/bacground-01.jpg');
 
 	background-size: cover;
 	background-position: center;
@@ -34,5 +34,24 @@
 		background-color: rgba($color: $third-color, $alpha: 0.6);
 		padding: 2rem 5%;
 		border-radius: 10px;
+
+		& > .button {
+			padding-top: 1rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+
+			& > .button__prev {
+				padding: 0.5rem 1rem;
+				@include animated-btn($third-button-color, $primary-text-color, $third-button-color, 2px, x);
+			}
+
+			& > .button__next {
+				padding: 0.5rem 1rem;
+				@include animated-btn($primary-text-color, $button-color, $button-color, 2px, x-rotate);
+			}
+		}
 	}
+
+	transition: margin-right 2s, color 1s;
 }

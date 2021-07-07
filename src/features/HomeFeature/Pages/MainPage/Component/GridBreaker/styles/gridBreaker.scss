@@ -1,23 +1,23 @@
 @import '../../../../../../../assets/styles/all.scss';
 .gridBreaker {
-	background-size: cover;
-	background-position: center;
+	// background-size: cover;
+	// background-position: center;
 
-	@include largeDesktop {
-		background-image: url('../../../../../../../assets/images/desktop.svg');
-	}
-	@include smallDesktop {
-		background-image: url('../../../../../../../assets/images/desktop.svg');
-	}
-	@include tabletAndDesktop {
-		background-image: url('../../../../../../../assets/images/tablet.svg');
-	}
-	@include tablet {
-		background-image: url('../../../../../../../assets/images/tablet.svg');
-	}
-	@include mobile {
-		background-image: url('../../../../../../../assets/images/mobile.svg');
-	}
+	// @include largeDesktop {
+	// 	background-image: url('../../../../../../../assets/images/desktop.svg');
+	// }
+	// @include smallDesktop {
+	// 	background-image: url('../../../../../../../assets/images/desktop.svg');
+	// }
+	// @include tabletAndDesktop {
+	// 	background-image: url('../../../../../../../assets/images/tablet.svg');
+	// }
+	// @include tablet {
+	// 	background-image: url('../../../../../../../assets/images/tablet.svg');
+	// }
+	// @include mobile {
+	// 	background-image: url('../../../../../../../assets/images/mobile.svg');
+	// }
 
 	&__list {
 		display: flex;

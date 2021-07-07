@@ -1,15 +1,16 @@
 @import '../../../../../assets/styles/all.scss';
 
 .banner {
-	background-image: url('../../../../../assets/images/bacground-01.jpg');
+	// background-image: url('../../../../../assets/images/bacground-01.jpg');
 
-	background-size: cover;
-	background-position: center;
+	// background-size: cover;
+	// background-position: center;
 
 	width: 100%;
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
+	transition: all 1s;
 	@include tablet {
 		width: 100%;
 		margin: auto;
@@ -33,31 +34,34 @@
 			animation-duration: 1s;
 		}
 		@include tabletAndDesktop {
-			width: 100%;
+			width: 85%;
 			text-align: center;
+			margin: 1rem auto;
 		}
 		@include tablet {
-			width: 100%;
+			width: 85%;
 			text-align: center;
+			margin: 1rem auto;
 		}
 		@include mobile {
 			text-align: center;
-			width: 100%;
-			margin-bottom: 1rem;
+			width: 85%;
+			margin: 1rem auto;
 		}
 
 		& > .info {
 			&__title {
+				transition: all 1s;
 				@include mobile {
-					font-size: 1.5rem;
+					font-size: 1.75rem;
 					margin-bottom: 0.4rem;
 				}
 				@include tablet {
-					font-size: 1.7rem;
+					font-size: 2.5rem;
 					margin-bottom: 0.6rem;
 				}
 				@include tabletAndDesktop {
-					font-size: 1.7rem;
+					font-size: 2.5rem;
 					margin-bottom: 0.8rem;
 				}
 				@include smallDesktop {
@@ -65,7 +69,7 @@
 					margin-bottom: 1rem;
 				}
 				@include largeDesktop {
-					font-size: 3rem;
+					font-size: 2.75rem;
 					margin-bottom: 1rem;
 				}
 			}
@@ -73,20 +77,21 @@
 			&__description {
 				word-wrap: break-word;
 				font-family: $body-font;
+				transition: all 1s;
 				@include mobile {
 					font-size: 1rem;
-					margin-bottom: 0.4rem;
+					margin-bottom: 2rem;
 				}
 				@include tablet {
-					font-size: 0.9rem;
-					margin-bottom: 0.6rem;
+					font-size: 1.5rem;
+					margin-bottom: 2rem;
 				}
 				@include tabletAndDesktop {
-					font-size: 1rem;
+					font-size: 1.2rem;
 					margin-bottom: 0.8rem;
 				}
 				@include smallDesktop {
-					font-size: 1rem;
+					font-size: 1.2rem;
 					margin-bottom: 1.5rem;
 				}
 				@include largeDesktop {
@@ -97,14 +102,19 @@
 
 			&__btn {
 				& > a {
+					text-align: center;
+					width: 100%;
+					transition: all 1s;
 					@include boxShadow;
 					@include mobile {
-						font-size: 3rem;
+						font-size: 2rem;
 						padding: 0.2rem 2rem;
+						display: block;
 					}
 					@include tablet {
 						font-size: 3rem;
 						padding: 0.3rem 2.2rem;
+						display: block;
 					}
 					@include tabletAndDesktop {
 						font-size: 1.5rem;

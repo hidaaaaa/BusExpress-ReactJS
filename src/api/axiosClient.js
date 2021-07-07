@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosClient = axios.create({
-	baseURL: 'http://192.168.1.24:5000/api/v1/',
+	baseURL: 'https://busexpess-backend.herokuapp.com/api/v1/',
 	headers: {
 		'Content-type': 'application/json',
 	},

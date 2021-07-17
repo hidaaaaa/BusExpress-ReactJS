@@ -4,7 +4,7 @@
 	height: 100%;
 	display: flex;
 	align-items: flex-start;
-	justify-content: space-around;
+	justify-content: space-between;
 
 	@include tablet {
 		flex-direction: column;
@@ -194,15 +194,33 @@
 		}
 	}
 }
+.button {
+	padding-top: 1rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	& > .button__prev {
+		padding: 0.5rem 1rem;
+		@include animated-btn($third-button-color, $primary-text-color, $third-button-color, 2px, x);
+	}
+
+	& > .button__next {
+		padding: 0.5rem 1rem;
+		@include animated-btn($primary-text-color, $button-color, $button-color, 2px, x-rotate);
+	}
+}
 
 .loadingScreen {
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	background-color: $primary-text-color;
 	border-radius: 10px;
 
-	& > .jt {
-		font-size: 3rem;
+	& > * {
+		background-color: $primary-text-color;
+		border-radius: 10px;
+		width: 100%;
+		height: 100%;
 	}
 }

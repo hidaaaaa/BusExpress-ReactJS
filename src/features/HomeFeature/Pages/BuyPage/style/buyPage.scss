@@ -1,9 +1,6 @@
 @import '../../../../../assets/styles/all.scss';
 
 .processBar {
-	align-items: center;
-	margin: 2rem auto;
-	width: 85%;
 }
 
 .buyPage {
@@ -35,20 +32,32 @@
 		padding: 2rem 5%;
 		border-radius: 10px;
 
-		& > .button {
-			padding-top: 1rem;
-			display: flex;
-			justify-content: space-between;
+		& > .process {
 			align-items: center;
+			padding: 1rem;
+			border-radius: 5px;
+			width: 100%;
+			background-color: $button-color;
+			margin-bottom: 2rem;
 
-			& > .button__prev {
-				padding: 0.5rem 1rem;
-				@include animated-btn($third-button-color, $primary-text-color, $third-button-color, 2px, x);
-			}
+			& > .process {
+				&__title {
+					font-size: 2rem;
+				}
 
-			& > .button__next {
-				padding: 0.5rem 1rem;
-				@include animated-btn($primary-text-color, $button-color, $button-color, 2px, x-rotate);
+				&__status {
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+
+					@include mobile {
+						font-size: 0.8rem;
+					}
+
+					@include tablet {
+						font-size: 1rem;
+					}
+				}
 			}
 		}
 	}

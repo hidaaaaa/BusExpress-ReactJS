@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import SelectDateForm from '../SelectDateForm/SelectDateForm';
 import './styles/banner.scss';
+import banner from 'assets/images/toppng.com-bus-png-1718x976.png';
 
 function Banner({ animationBanner, onSubmit = null, loading = true }) {
 	const handleSubmit = async (values) => {
@@ -27,6 +28,9 @@ function Banner({ animationBanner, onSubmit = null, loading = true }) {
 					<SelectDateForm onSubmit={handleSubmit} loading={loading} />
 				</div>
 			</div>
+			{/* <div className={`banner__img ${animationBanner ? 'animation' : ''}`}>
+				<img src={banner} alt="" />
+			</div> */}
 		</div>
 	);
 }

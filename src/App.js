@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { BackTop, Layout } from 'antd';
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import Footer from 'components/Footer/Footer';
+import AuthFeature from 'features/AuthFeature/AuthFeature';
 import { Redirect, Route, Switch } from 'react-router';
 import './App.scss';
 import Header from './components/Header/Header';
@@ -24,6 +25,7 @@ function App() {
 						<Redirect from="/post-list/:pistId" to="/posts/:postId" exact />
 
 						<Route path="/home" component={HomeFeature} />
+						<Route path="/auth" component={AuthFeature} />
 					</Switch>
 				</div>
 				<Footer />

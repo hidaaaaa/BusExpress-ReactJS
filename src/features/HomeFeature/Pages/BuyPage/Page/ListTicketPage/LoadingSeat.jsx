@@ -20,8 +20,10 @@ function LoadingSeat(props) {
 	return (
 		<>
 			<Row className="seatMap__row row">
-				{items}
-				<Loading className="loadingScreen" text={'Loading'} />
+				<div className="row__item">{items}</div>
+				<div className="loadingScreen">
+					<Loading text={'Loading'} />
+				</div>
 			</Row>
 		</>
 	);

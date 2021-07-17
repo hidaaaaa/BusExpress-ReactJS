@@ -92,7 +92,10 @@ function Header(props) {
 					</li>
 
 					<li className="header__user">
-						<div className="user" onClick={toggleMenu === 'user' ? handleCloseMenu : handleShowMenuUser}>
+						<div className="user">
+							<Link to="/auth/login">Login</Link>
+						</div>
+						{/* <div className="user" onClick={toggleMenu === 'user' ? handleCloseMenu : handleShowMenuUser}>
 							<div>
 								<FontAwesomeIcon icon={faUserAlt} />
 							</div>
@@ -118,7 +121,7 @@ function Header(props) {
 									</Link>
 								</li>
 							</ul>
-						</div>
+						</div> */}
 					</li>
 				</ul>
 			</div>

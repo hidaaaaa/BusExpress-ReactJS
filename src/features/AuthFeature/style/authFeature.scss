@@ -1,37 +1,99 @@
 @import '../../../assets/styles/all.scss';
 
-.registerPage,
-.loginPage {
-	background-image: url('../../../assets/images/bacground-01.jpg');
-
+.page {
+	background-image: url('../../../assets/images/desktop.svg');
+	min-height: 100vh;
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	padding: 4rem;
+	text-align: left;
+
+	@include mobile {
+		padding: 1rem;
+	}
+
+	align-items: center;
+	justify-content: center;
+	display: flex;
 
 	& > * {
 		padding: 3.25rem;
 		margin: auto;
-
-		background-color: rgba($color: $primary-color, $alpha: 0.4);
+		background-color: rgba($color: $second-color, $alpha: 1);
 		border-radius: 10px;
+		@include boxShadow;
+		width: 60%;
 
-		width: 50%;
-
-		@include tablet {
+		@include mobile {
+			padding: 1rem;
 			margin-left: 2%;
 			margin-right: 2%;
 			width: calc(100% - 4%);
 		}
-		@include mobile {
+		@include tablet {
+			padding: 1.2rem;
 			margin-left: 2%;
 			margin-right: 2%;
 			width: calc(100% - 4%);
 		}
 		@include tabletAndDesktop {
+			padding: 1.5rem;
 			margin-left: 2%;
 			margin-right: 2%;
 			width: calc(100% - 4%);
+		}
+		@include smallDesktop {
+			padding: 2rem;
+			width: 70%;
+		}
+	}
+}
+
+.profilePage {
+	width: 100%;
+	display: flex;
+	align-items: stretch;
+	justify-content: space-between;
+	flex-direction: unset;
+	background-color: rgba($color: $primary-text-color, $alpha: 0.4) !important;
+	height: 100%;
+
+	@include tablet {
+		flex-direction: column;
+	}
+	@include mobile {
+		flex-direction: column;
+	}
+
+	&__nav {
+		width: 20%;
+		background-color: #001529;
+		padding: 2rem;
+		border-radius: 10px;
+		margin-right: 1rem;
+		margin-bottom: 1rem;
+
+		@include tablet {
+			width: 100%;
+		}
+		@include mobile {
+			width: 100%;
+		}
+	}
+
+	&__content {
+		background-color: #001529;
+		padding: 2rem;
+		border-radius: 10px;
+		width: 80%;
+		margin-bottom: 1rem;
+
+		@include tablet {
+			width: 100%;
+		}
+		@include mobile {
+			width: 100%;
 		}
 	}
 }

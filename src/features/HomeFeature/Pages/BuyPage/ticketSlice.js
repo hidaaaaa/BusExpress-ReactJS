@@ -10,9 +10,12 @@ const ticketSlice = createSlice({
 			const newListTicket = action.payload;
 			state.tickets = newListTicket;
 		},
+		deleteTicket(state, action) {
+			state.tickets = {};
+		},
 	},
 });
 
 const { actions, reducer } = ticketSlice;
-export const { getListTicket } = actions;
+export const { getListTicket, deleteTicket } = actions;
 export default reducer;

@@ -1,20 +1,32 @@
-import { Progress } from 'antd';
+import { notification, Progress } from 'antd';
 import Layout from 'antd/lib/layout/layout';
 import busApi from 'api/busApi';
+import paymentApi from 'api/paymentApi';
 import Loading from 'components/Loading/Loading';
+import LoginPage from 'features/AuthFeature/Page/LoginPage';
 import queryString from 'query-string';
 import React, { useEffect, useMemo, useState } from 'react';
-import { Link, Route, Switch, useHistory, useLocation, useRouteMatch } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect, Route, Switch, useHistory, useLocation, useRouteMatch } from 'react-router-dom';
+import InformationTicketPage from './Page/InformationTicketPage/InformationTicketPage';
 import ListTicketPage from './Page/ListTicketPage/ListTicketPage';
+import PaymentPage from './Page/PaymentPage/PaymentPage';
 import './style/buyPage.scss';
+import { deleteTicket } from './ticketSlice';
 
 function BuyPage() {
+	const tickets = useSelector((state) => state.tickets.tickets.tickets);
+	const loggedInUser = useSelector((state) => state.auth.current);
+	const isLoggedIn = !!loggedInUser.Email;
 	const [loading, setLoading] = useState(true);
+	const [loadingPayment, setLoadingPayment] = useState(true);
 	const [listTrip, setListTrip] = useState({});
 	const [buses, setBuses] = useState([]);
 	const match = useRouteMatch();
 	const location = useLocation();
 	const history = useHistory();
+
+	const dispatch = useDispatch();
 
 	let queryParams = useMemo(() => {
 		const params = queryString.parse(location.search);
@@ -41,25 +53,51 @@ function BuyPage() {
 		})();
 	}, [queryParams]);
 
+	if (loading) {
+		return <Loading text="loading..." />;
+	}
+
 	const handleSumitPrev = ({ step }) => {
 		if (step === '1') {
 			history.push('/home');
 		}
+		if (step === '2') {
+			queryParams = {
+				...queryParams,
+				step: 1,
+			};
+			history.push(`/home/buy?tripid=${queryParams.tripid}&date=${queryParams.date}&step=1`);
+		}
 	};
-	const handleSumitNext = ({ step }) => {
+	const handleSumitNext = async ({ step, informationPayment = '' }) => {
 		if (step === '1') {
 			queryParams = {
 				...queryParams,
 				step: 2,
 			};
-		}
-		history.push(`/home/buy?tripid=${queryParams.tripid}&date=${queryParams.date}&step=2`);
-		console.log(queryParams.step);
-	};
+			history.push(`/home/buy?tripid=${queryParams.tripid}&date=${queryParams.date}&step=2`);
+		} else if (step === '2') {
+			try {
+				console.log(informationPayment, step);
+				const results = await paymentApi.payment(informationPayment);
+				const action = await deleteTicket();
+				dispatch(action);
+				setLoadingPayment(false);
+				console.log(results, loadingPayment);
 
-	if (loading) {
-		return <Loading text="loading..." />;
-	}
+				queryParams = {
+					...queryParams,
+					step: 3,
+				};
+				history.push(`/home/buy?tripid=${queryParams.tripid}&date=${queryParams.date}&step=3`);
+			} catch (error) {
+				return notification.error({
+					message: 'Error!!!',
+					description: 'tickets was buyed by some other',
+				});
+			}
+		}
+	};
 
 	return (
 		<Layout className="buyPage">
@@ -67,7 +105,7 @@ function BuyPage() {
 				<div className="process">
 					<div className="process__title">buy ticket</div>
 					<Progress
-						percent={(queryParams.step * 100) / 4}
+						percent={(queryParams.step * 100) / 3}
 						status="active"
 						showInfo={false}
 						strokeColor={{
@@ -81,7 +119,6 @@ function BuyPage() {
 						<div></div>
 						<div>Choose Ticket</div>
 						<div>Infomation</div>
-						<div>payment</div>
 						<div>done</div>
 					</div>
 				</div>
@@ -98,12 +135,38 @@ function BuyPage() {
 							/>
 						</Route>
 					) : queryParams.step === '2' ? (
-						<Route path={match.url} exact>
-							<>step 2</>
-						</Route>
+						<Route
+							render={({ location }) =>
+								isLoggedIn ? (
+									<>
+										{!!tickets ? (
+											<>
+												<InformationTicketPage
+													buses={buses}
+													listTrip={listTrip}
+													queryParams={queryParams}
+													handleSumitPrev={handleSumitPrev}
+													handleSumitNext={handleSumitNext}
+												/>
+											</>
+										) : (
+											<>
+												<Redirect to={`/home/buy?tripid=${queryParams.tripid}&date=${queryParams.date}&step=1`} />
+											</>
+										)}
+									</>
+								) : (
+									<LoginPage url={`${location.pathname}${location.search}`} />
+								)
+							}
+						/>
 					) : (
 						<Route path={match.url} exact>
-							<>step 3</>
+							<PaymentPage
+								queryParams={queryParams}
+								handleSumitPrev={handleSumitPrev}
+								handleSumitNext={handleSumitNext}
+							/>
 						</Route>
 					)}
 				</Switch>

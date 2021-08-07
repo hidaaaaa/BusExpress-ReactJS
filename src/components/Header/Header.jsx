@@ -1,14 +1,19 @@
 import { faAlignJustify, faChevronLeft, faGlobe, faTimes, faUserAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import logo from 'assets/images/logo.png';
+import { logout } from 'features/authSlice';
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import './styles/header.scss';
 
 function Header(props) {
+	const dispatch = useDispatch();
 	const [toggleMobile, setToggleMobile] = useState(false);
 	const [toggleMenu, setToggleMenu] = useState('');
 	const location = useLocation();
+	const loggedInUser = useSelector((state) => state.auth.current);
+	const isLoggedIn = !!loggedInUser.Email;
 
 	const handleShowNavbar = () => {
 		setToggleMobile(!toggleMobile);
@@ -24,6 +29,11 @@ function Header(props) {
 
 	const handleCloseMenu = () => {
 		setToggleMenu('');
+	};
+
+	const handleSignoutClick = () => {
+		const action = logout();
+		dispatch(action);
 	};
 
 	return (
@@ -92,36 +102,41 @@ function Header(props) {
 					</li>
 
 					<li className="header__user">
-						<div className="user">
-							<Link to="/auth/login">Login</Link>
-						</div>
-						{/* <div className="user" onClick={toggleMenu === 'user' ? handleCloseMenu : handleShowMenuUser}>
-							<div>
-								<FontAwesomeIcon icon={faUserAlt} />
-							</div>
-							<span>MINUSKING</span>
-						</div>
-						<div className={`header__menu ${toggleMenu === 'user' ? 'show-menu' : ''}`}>
-							<ul className="top">
-								<li className="title">
-									<div onClick={handleCloseMenu}>
-										<FontAwesomeIcon icon={faChevronLeft} />
+						{isLoggedIn ? (
+							<>
+								<div className="user" onClick={toggleMenu === 'user' ? handleCloseMenu : handleShowMenuUser}>
+									<div>
+										<FontAwesomeIcon icon={faUserAlt} />
 									</div>
-									<span>MINUSKING</span>
-									<div></div>
-								</li>
-								<li>
-									<Link to="/account/me" className="header__link">
-										ACCOUNT
-									</Link>
-								</li>
-								<li>
-									<Link to="/acc" className="header__link">
-										SIGN OUT
-									</Link>
-								</li>
-							</ul>
-						</div> */}
+									<span>{loggedInUser.Email.replace(loggedInUser.Email.match(`@.*$`), '')}</span>
+								</div>
+								<div className={`header__menu ${toggleMenu === 'user' ? 'show-menu' : ''}`}>
+									<ul className="top">
+										<li className="title">
+											<div onClick={handleCloseMenu}>
+												<FontAwesomeIcon icon={faChevronLeft} />
+											</div>
+											<span>{loggedInUser.Email.replace(loggedInUser.Email.match(`@.*$`), '')}</span>
+											<div></div>
+										</li>
+										<li>
+											<Link to="/auth/me" className="header__link">
+												ACCOUNT
+											</Link>
+										</li>
+										<li>
+											<div className="header__link" onClick={handleSignoutClick}>
+												SIGN OUT
+											</div>
+										</li>
+									</ul>
+								</div>
+							</>
+						) : (
+							<div className="user">
+								<Link to="/auth/login">Login</Link>
+							</div>
+						)}
 					</li>
 				</ul>
 			</div>

@@ -2,11 +2,10 @@
 
 .banner {
 	width: 100%;
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
+
 	transition: all 1s;
 	min-height: 100vh;
+
 	@include tablet {
 		width: 100%;
 		margin: auto;

@@ -1,33 +1,41 @@
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, notification } from 'antd';
+import authApi from 'api/authApi';
 import InputField from 'components/InputField/InputField';
-import PasswordField from 'components/PasswordField/PasswordField';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import '../style.scss';
 
-function LoginForm({ onSubmit, loading = false }) {
+function ForgotForm(props) {
+	const [loading, setLoading] = useState(false);
 	const form = useForm({
 		defaultValues: {
 			email: '',
-			password: '',
 		},
 		// resolver: yupResolver(schema),
 	});
 
 	const handleSubmit = async (values) => {
-		console.log(values.email, values.password, values.email === '' || values.password === '');
-		if (values.email !== '' || values.password !== '') {
-			if (onSubmit) {
-				await onSubmit(values);
-				//form.reset();
-			}
-		} else {
+		// if (onSubmit) {
+		// 	await onSubmit(values);
+		// 	form.reset();
+		// }
+
+		setLoading(true);
+
+		try {
+			await authApi.forgotPassword(values);
+			setLoading(false);
+			return notification.success({
+				message: 'Change password success',
+			});
+		} catch (error) {
+			console.log(error);
+			setLoading(false);
 			return notification.error({
-				message: 'Wrong credentials 1',
-				description: 'Invalid username or password',
+				message: 'Change password fail',
+				// description: error.msg,
 			});
 		}
 	};
@@ -35,33 +43,29 @@ function LoginForm({ onSubmit, loading = false }) {
 	return (
 		<form onSubmit={form.handleSubmit(handleSubmit)} className="loginForm">
 			<div className="loginForm__title">
-				Login Now
+				Forgot Password
 				<span>
-					<Link to="register">
+					<Link to="login">
 						<Button type="primary" danger style={{ marginRight: '10px' }}>
-							register
+							Login
 						</Button>
-					</Link>
-					<Link to="forgot">
-						<Button type="primary">Forgot Password?</Button>
 					</Link>
 				</span>
 			</div>
 
 			<InputField form={form} name="email" label="email" />
-			<PasswordField form={form} name="password" label="password" />
 
-			<button type="submit" className={loading ? 'loading-button' : ''}>
+			<button type="submit" className={`${loading ? 'loading-button' : ''}`}>
 				{loading ? (
 					<>
 						<FontAwesomeIcon icon={faSpinner} className="loading-icon" /> Loading...
 					</>
 				) : (
-					<>Login</>
+					<>Send Email to reset password</>
 				)}
 			</button>
 		</form>
 	);
 }
 
-export default LoginForm;
+export default ForgotForm;

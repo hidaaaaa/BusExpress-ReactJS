@@ -1,0 +1,104 @@
+@import '../../../assets/styles/all.scss';
+
+.loginForm,
+.registerForm {
+	&__title {
+		font-size: 3rem;
+		padding-bottom: 2rem;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		& > a {
+			font-size: 1.2rem;
+			@include mobile {
+				font-size: 1rem;
+			}
+			@include tablet {
+				font-size: 1rem;
+			}
+			@include smallDesktop {
+				font-size: 1rem;
+			}
+		}
+		@include mobile {
+			font-size: 1.5rem;
+		}
+		@include tablet {
+			font-size: 2.5rem;
+		}
+		@include tabletAndDesktop {
+			font-size: 2.5rem;
+		}
+	}
+
+	& > button {
+		width: 100%;
+		background-color: $button-color;
+		font-size: 2rem;
+		padding-top: 0.5rem;
+		padding-bottom: 0.5rem;
+		border-radius: 5px;
+		@include animated-btn($button-color, $primary-text-color, $button-color, 5px, x);
+
+		@include mobile {
+			font-size: 1.5rem;
+		}
+		@include tablet {
+			font-size: 1.5rem;
+		}
+		&.loading-button {
+			@include animated-btn(#4d9ff0, #4d9ff0, $primary-text-color, 5px, x);
+			cursor: not-allowed;
+		}
+	}
+}
+
+.inputField,
+.passwordField {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-bottom: 2rem;
+
+	@include mobile {
+		flex-direction: column;
+		padding-bottom: 1rem;
+
+		& > input {
+			padding: 4px;
+		}
+	}
+
+	&__title {
+		width: 40%;
+		font-size: 1.5rem;
+		@include mobile {
+			width: 100%;
+			font-size: 1rem;
+		}
+
+		@include tablet {
+			font-size: 1.2rem;
+		}
+		@include smallDesktop {
+			font-size: 1.2rem;
+		}
+	}
+}
+
+.loading-icon {
+	animation-name: spin;
+	animation-duration: 1000ms;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}

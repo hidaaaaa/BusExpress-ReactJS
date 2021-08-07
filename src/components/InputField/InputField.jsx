@@ -2,7 +2,7 @@ import { Input } from 'antd';
 import React from 'react';
 import { Controller } from 'react-hook-form';
 
-function InputField({ form, name, label }) {
+function InputField({ form, name, label, defaultValue = '' }) {
 	//console.log(errors);
 	return (
 		<div className={`inputField `}>
@@ -13,6 +13,7 @@ function InputField({ form, name, label }) {
 				control={form.control}
 				render={({ field: { onChange, onBlur, value, name, ref } }) => (
 					<Input
+						defaultValue={defaultValue}
 						size={`large`}
 						className="inputField__input"
 						ref={ref}

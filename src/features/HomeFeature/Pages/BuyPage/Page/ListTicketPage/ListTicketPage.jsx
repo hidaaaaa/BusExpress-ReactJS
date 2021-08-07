@@ -4,7 +4,7 @@ import { Col, notification, Row, Select } from 'antd';
 import CheckableTag from 'antd/lib/tag/CheckableTag';
 import busApi from 'api/busApi';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getListTicket } from '../../ticketSlice';
 import LoadingSeat from './LoadingSeat';
 import './style/listTicketPage.scss';
@@ -13,10 +13,13 @@ const { Option } = Select;
 
 function ListTicketPage({ listTrip, buses, queryParams, handleSumitPrev, handleSumitNext }) {
 	const dispatch = useDispatch();
-	const [selectedTags, setSelectedTags] = useState([]);
+	const tickets = useSelector((state) => state.tickets.tickets);
+
+	const [selectedTags, setSelectedTags] = useState(
+		tickets.tickets === undefined ? [] : [{ ...tickets.tickets, tag: [...tickets.tickets.tag] }]
+	);
 	const [filters, setFilters] = useState({ ...queryParams, time: listTrip[0].GioDi });
 	const [post, setPost] = useState([]);
-
 	const [loading, setLoading] = useState(true);
 	let tagsData = [...post];
 
@@ -50,6 +53,7 @@ function ListTicketPage({ listTrip, buses, queryParams, handleSumitPrev, handleS
 				{
 					id: filters.time,
 					tag: [tag],
+					writable: true,
 				},
 			]);
 		} else {
@@ -64,7 +68,9 @@ function ListTicketPage({ listTrip, buses, queryParams, handleSumitPrev, handleS
 				});
 			} else {
 				const temp = [...selectedTags];
-
+				Object.defineProperty(temp[index], 'tag', {
+					writable: true,
+				});
 				temp[index].tag = nextSelectedTags;
 
 				setSelectedTags(temp);
@@ -84,8 +90,13 @@ function ListTicketPage({ listTrip, buses, queryParams, handleSumitPrev, handleS
 				const index = selectedTags.findIndex((item) => item.id === filters.time);
 				if (index >= 0) {
 					if (selectedTags[index].tag.length > 0) {
-						const action = await getListTicket(selectedTags[index]);
+						const action = await getListTicket({
+							tickets: selectedTags[index],
+							date: queryParams.date,
+							tripid: queryParams.tripid,
+						});
 						dispatch(action);
+						await handleSumitNext({ step: queryParams.step });
 					} else {
 						return notification.error({
 							message: 'Error!!!',
@@ -104,7 +115,6 @@ function ListTicketPage({ listTrip, buses, queryParams, handleSumitPrev, handleS
 					description: 'you not choose any tickets',
 				});
 			}
-			//await handleSumitNext({ step: queryParams.step });
 		}
 	};
 

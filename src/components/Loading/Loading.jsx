@@ -1,7 +1,7 @@
 import React from 'react';
 import './style/loading.scss';
 
-function Loading({ text }) {
+function Loading({ text = 'Loading...' }) {
 	return (
 		<div className="loading">
 			<h1 className="jt --debug">

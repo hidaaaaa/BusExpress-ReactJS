@@ -1,0 +1,82 @@
+@import '../../../../../../../assets/styles/all.scss';
+.infomationTicketPage {
+	&__list {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		@include tablet {
+			flex-direction: column;
+		}
+		@include mobile {
+			flex-direction: column;
+		}
+	}
+
+	&__item {
+		color: $primary-color;
+		text-align: left;
+		padding: 1rem;
+		background-color: $primary-text-color;
+		border-radius: 5px;
+		margin: 0 1rem;
+		margin-bottom: 1rem;
+	}
+}
+
+.item {
+	&:first-child {
+		padding-bottom: 1rem;
+	}
+
+	&__seat,
+	&__time {
+		font-size: 1.2rem;
+
+		@include smallDesktop {
+			font-size: 1rem;
+		}
+
+		@include tabletAndDesktop {
+			font-size: 0.8rem;
+		}
+	}
+
+	&__title {
+		font-size: 1.5rem;
+		color: $button-color;
+
+		& > svg {
+			margin: 0 0.5rem;
+			font-size: 1.5rem;
+
+			@include smallDesktop {
+				margin: 0 0.2rem;
+				font-size: 1.2rem;
+			}
+
+			@include tabletAndDesktop {
+				margin: 0 0.2rem;
+				font-size: 0.9rem;
+			}
+		}
+
+		@include smallDesktop {
+			font-size: 1.3rem;
+		}
+
+		@include tabletAndDesktop {
+			font-size: 1rem;
+		}
+	}
+
+	& > button {
+		width: 100%;
+		margin-top: 1rem;
+		@include boxShadow;
+	}
+}
+
+.button__confirm {
+	font-size: 2rem;
+}

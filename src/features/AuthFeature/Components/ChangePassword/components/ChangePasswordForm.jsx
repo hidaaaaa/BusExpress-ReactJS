@@ -35,7 +35,7 @@ function ChangePasswordForm({ onSubmit, loading = false }) {
 			<PasswordField form={form} name="newPassword" label="New Password" />
 			<PasswordField form={form} name="reNewPassword" label="Confirm New Password" />
 
-			<button type="submit" className={loading ? 'loading' : ''}>
+			<button type="submit" className={loading ? 'loading-button' : ''}>
 				{loading ? (
 					<>
 						<FontAwesomeIcon icon={faSpinner} className="loading-icon" /> Loading...

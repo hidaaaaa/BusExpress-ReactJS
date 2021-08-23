@@ -19,7 +19,7 @@ function LoginPage({ url = '/home' }) {
 			unwrapResult(resultAction);
 			history.push(url);
 			setLoading(false);
-			return notification.error({
+			return notification.success({
 				message: 'Login success',
 			});
 		} catch (error) {

@@ -15,9 +15,21 @@ const busApi = {
 	async getPostByDateAndTime(params) {
 		const newParams = { ...params };
 
-		const productList = await axiosClient.get('/m/posts', { params: newParams });
+		const productList = await axiosClient.get('/posts', { params: newParams });
 
 		return productList;
+	},
+	async getPostDetailed(params) {
+		const url = `/getPostDetails/${params.postID}`;
+
+		const postDetailed = await axiosClient.get(url);
+		return postDetailed;
+	},
+	async getAllBuses() {
+		const url = '/all-buses';
+
+		const allBuses = await axiosClient.get(url);
+		return allBuses;
 	},
 };
 

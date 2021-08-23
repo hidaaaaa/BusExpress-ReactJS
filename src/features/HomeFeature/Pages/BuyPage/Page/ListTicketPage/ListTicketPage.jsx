@@ -1,6 +1,6 @@
 import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Col, notification, Row, Select } from 'antd';
+import { Button, Col, notification, Row, Select } from 'antd';
 import CheckableTag from 'antd/lib/tag/CheckableTag';
 import busApi from 'api/busApi';
 import React, { useEffect, useState } from 'react';
@@ -14,7 +14,7 @@ const { Option } = Select;
 function ListTicketPage({ listTrip, buses, queryParams, handleSumitPrev, handleSumitNext }) {
 	const dispatch = useDispatch();
 	const tickets = useSelector((state) => state.tickets.tickets);
-
+	const [positon, setPositon] = useState(true);
 	const [selectedTags, setSelectedTags] = useState(
 		tickets.tickets === undefined ? [] : [{ ...tickets.tickets, tag: [...tickets.tickets.tag] }]
 	);
@@ -27,7 +27,47 @@ function ListTicketPage({ listTrip, buses, queryParams, handleSumitPrev, handleS
 		(async () => {
 			try {
 				const data = await busApi.getPostByDateAndTime(filters);
-				await setPost(data);
+				const bus = listTrip.findIndex((item) => item.GioDi === filters.time);
+				const postDetailed = await busApi.getPostDetailed({ postID: listTrip[bus].MaCX });
+
+				console.log(data);
+				const seats = [];
+				if (postDetailed[0].LoaiXe === 'BUS') {
+					Array(postDetailed[0].SoLuongGhe)
+						.fill(null)
+						.map((e, i) => {
+							seats.push({
+								code: `A${i + 1}`,
+								choose: '0',
+							});
+						});
+				} else {
+					Array(postDetailed[0].SoLuongGhe)
+						.fill(null)
+						.map((e, i) => {
+							seats.push({
+								code: `A${i + 1}`,
+								choose: '0',
+							});
+						});
+
+					Array(postDetailed[0].SoLuongGhe)
+						.fill(null)
+						.map((e, i) => {
+							seats.push({
+								code: `B${i + 1}`,
+								choose: '0',
+							});
+						});
+				}
+
+				data.map((e) => {
+					if (seats.findIndex((item) => item.code === e.SoGhe) > -1) {
+						seats[seats.findIndex((item) => item.code === e.SoGhe)].choose = '1';
+					}
+				});
+
+				setPost(seats);
 			} catch (error) {
 				console.log('false to fetch  list transfer :', error);
 			}
@@ -153,45 +193,151 @@ function ListTicketPage({ listTrip, buses, queryParams, handleSumitPrev, handleS
 						<LoadingSeat />
 					) : (
 						<>
-							<Row className="seatMap__row row">
-								{tagsData.map((tag, index) => {
-									if (tag.choose === '1') {
-										return (
-											<Col key={index} span={8} className="row__item item">
-												<CheckableTag className="item__seat disable">{tag.code}</CheckableTag>
-											</Col>
-										);
-									} else {
-										const indexPos = selectedTags.findIndex((item) => item.id === filters.time);
+							{tagsData.length > 50 ? (
+								<>
+									<div className="button" style={{ paddingBottom: '1rem' }}>
+										{positon ? (
+											<div className="seatMap__title">downstairs </div>
+										) : (
+											<div className="seatMap__title">upstairs</div>
+										)}
 
-										if (indexPos > -1) {
-											return (
-												<Col span={8} key={index} className="row__item">
-													<CheckableTag
-														checked={selectedTags[indexPos].tag.findIndex((e) => e.code === tag.code) > -1}
-														onChange={(checked) => handleChange(tag, checked)}
-														className="item__seat"
-													>
-														{tag.code}
-													</CheckableTag>
-												</Col>
-											);
-										} else {
-											return (
-												<Col span={8} key={index} className="row__item">
-													<CheckableTag
-														checked={false}
-														onChange={(checked) => handleChange(tag, checked)}
-														className="item__seat"
-													>
-														{tag.code}
-													</CheckableTag>
-												</Col>
-											);
-										}
-									}
-								})}
-							</Row>
+										<Button type="primary" danger onClick={() => setPositon(!positon)}>
+											Change stairs
+										</Button>
+									</div>
+
+									{positon ? (
+										<Row className="seatMap__row row">
+											{tagsData.map((tag, index) => {
+												if (tag.code.indexOf('A') > -1) {
+													if (tag.choose === '1') {
+														return (
+															<Col key={index} span={6} className="row__item item">
+																<CheckableTag className="item__seat disable">{tag.code}</CheckableTag>
+															</Col>
+														);
+													} else {
+														const indexPos = selectedTags.findIndex((item) => item.id === filters.time);
+
+														if (indexPos > -1) {
+															return (
+																<Col span={6} key={index} className="row__item">
+																	<CheckableTag
+																		checked={selectedTags[indexPos].tag.findIndex((e) => e.code === tag.code) > -1}
+																		onChange={(checked) => handleChange(tag, checked)}
+																		className="item__seat"
+																	>
+																		{tag.code}
+																	</CheckableTag>
+																</Col>
+															);
+														} else {
+															return (
+																<Col span={6} key={index} className="row__item">
+																	<CheckableTag
+																		checked={false}
+																		onChange={(checked) => handleChange(tag, checked)}
+																		className="item__seat"
+																	>
+																		{tag.code}
+																	</CheckableTag>
+																</Col>
+															);
+														}
+													}
+												}
+											})}
+										</Row>
+									) : (
+										<Row className="seatMap__row row">
+											{tagsData.map((tag, index) => {
+												if (tag.code.indexOf('B') > -1) {
+													if (tag.choose === '1') {
+														return (
+															<Col key={index} span={6} className="row__item item">
+																<CheckableTag className="item__seat disable">{tag.code}</CheckableTag>
+															</Col>
+														);
+													} else {
+														const indexPos = selectedTags.findIndex((item) => item.id === filters.time);
+
+														if (indexPos > -1) {
+															return (
+																<Col span={6} key={index} className="row__item">
+																	<CheckableTag
+																		checked={selectedTags[indexPos].tag.findIndex((e) => e.code === tag.code) > -1}
+																		onChange={(checked) => handleChange(tag, checked)}
+																		className="item__seat"
+																	>
+																		{tag.code}
+																	</CheckableTag>
+																</Col>
+															);
+														} else {
+															return (
+																<Col span={6} key={index} className="row__item">
+																	<CheckableTag
+																		checked={false}
+																		onChange={(checked) => handleChange(tag, checked)}
+																		className="item__seat"
+																	>
+																		{tag.code}
+																	</CheckableTag>
+																</Col>
+															);
+														}
+													}
+												}
+											})}
+										</Row>
+									)}
+								</>
+							) : (
+								<>
+									<Row className="seatMap__row row">
+										{tagsData.map((tag, index) => {
+											if (tag.code.indexOf('A') > -1) {
+												if (tag.choose === '1') {
+													return (
+														<Col key={index} span={8} className="row__item item">
+															<CheckableTag className="item__seat disable">{tag.code}</CheckableTag>
+														</Col>
+													);
+												} else {
+													const indexPos = selectedTags.findIndex((item) => item.id === filters.time);
+
+													if (indexPos > -1) {
+														return (
+															<Col span={8} key={index} className="row__item">
+																<CheckableTag
+																	checked={selectedTags[indexPos].tag.findIndex((e) => e.code === tag.code) > -1}
+																	onChange={(checked) => handleChange(tag, checked)}
+																	className="item__seat"
+																>
+																	{tag.code}
+																</CheckableTag>
+															</Col>
+														);
+													} else {
+														return (
+															<Col span={8} key={index} className="row__item">
+																<CheckableTag
+																	checked={false}
+																	onChange={(checked) => handleChange(tag, checked)}
+																	className="item__seat"
+																>
+																	{tag.code}
+																</CheckableTag>
+															</Col>
+														);
+													}
+												}
+											}
+										})}
+									</Row>
+								</>
+							)}
 						</>
 					)}
 				</div>

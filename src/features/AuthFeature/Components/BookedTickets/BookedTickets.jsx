@@ -1,4 +1,6 @@
-import { Button, Space, Table } from 'antd';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button, notification, Space, Table } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import authApi from 'api/authApi';
 import React from 'react';
@@ -7,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { formatDate } from 'utils/formatDate';
 
 function BookedTickets({ bookedTickets }) {
+	const [loading, setLoading] = useState(false);
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [listTicket, setListTickets] = useState([...bookedTickets]);
 	const [ticketCancel, setTicketCancel] = useState({});
@@ -49,13 +52,30 @@ function BookedTickets({ bookedTickets }) {
 			title: 'Action',
 			dataIndex: 'MaVeXe',
 			key: 'MaVeXe',
-			render: (MaVeXe) => (
-				<Space size="middle">
-					<Button type="text" danger onClick={() => handleCancelTicket(MaVeXe)}>
-						Delete
-					</Button>
-				</Space>
-			),
+			render: (MaVeXe) => {
+				const currentDate = new Date();
+				currentDate.setHours(0, 0, 0, 0);
+				const index = listTicket.find((item) => item.MaVeXe === MaVeXe);
+				const hoursT = parseInt(index.GioDi.split(':')[0]);
+				let isCantDel = false;
+				if (currentDate === new Date(index.NgayDi)) {
+					if (new Date().getHours() <= hoursT - 4) {
+						isCantDel = true;
+					} else {
+						isCantDel = false;
+					}
+				}
+				if (currentDate > new Date(index.NgayDi)) isCantDel = false;
+
+				if (currentDate < new Date(index.NgayDi)) isCantDel = true;
+				return (
+					<Space size="middle">
+						<Button type="text" danger onClick={() => handleCancelTicket(MaVeXe)} disabled={!isCantDel}>
+							Delete
+						</Button>
+					</Space>
+				);
+			},
 		},
 	];
 
@@ -64,13 +84,22 @@ function BookedTickets({ bookedTickets }) {
 	};
 
 	const handleOk = async () => {
+		setLoading(true);
 		try {
 			console.log(ticketCancel);
 			const rs = await authApi.cancelTicket(ticketCancel);
-			const temp = bookedTickets.filter((item) => item.MaVeXe !== ticketCancel.MaVeXe);
-			setListTickets(temp);
-			setIsModalVisible(false);
 			console.log(rs);
+			setLoading(false);
+			if (rs.is) {
+				const temp = bookedTickets.filter((item) => item.MaVeXe !== ticketCancel.MaVeXe);
+
+				setListTickets(temp);
+				setIsModalVisible(false);
+
+				return notification.success({
+					message: 'Hủy vé thành công',
+				});
+			}
 		} catch (error) {
 			console.log(error);
 		}
@@ -99,6 +128,7 @@ function BookedTickets({ bookedTickets }) {
 				dataSource={listTicket}
 				style={{ overflowX: 'auto', backgroundColor: '#ffffff', borderRadius: '10px', padding: '1rem' }}
 				pagination={{
+					position: ['bottomCenter'],
 					pageSize: 3,
 				}}
 				columns={columns}
@@ -110,11 +140,17 @@ function BookedTickets({ bookedTickets }) {
 				onOk={handleOk}
 				onCancel={handleCancel}
 				footer={[
-					<Button key="back" onClick={handleCancel}>
+					<Button key="back" onClick={handleCancel} disabled={loading}>
 						Return
 					</Button>,
 					<Button key="submit" type="primary" onClick={handleOk}>
-						Submit
+						{loading ? (
+							<>
+								<FontAwesomeIcon icon={faSpinner} className="loading-icon" /> Loading...
+							</>
+						) : (
+							<>Login</>
+						)}
 					</Button>,
 				]}
 			>

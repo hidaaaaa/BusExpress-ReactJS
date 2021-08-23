@@ -1,8 +1,10 @@
 import { notification, Progress } from 'antd';
 import Layout from 'antd/lib/layout/layout';
+import Modal from 'antd/lib/modal/Modal';
 import busApi from 'api/busApi';
 import paymentApi from 'api/paymentApi';
 import Loading from 'components/Loading/Loading';
+import Paypal from 'components/Paypal/Paypal';
 import LoginPage from 'features/AuthFeature/Page/LoginPage';
 import queryString from 'query-string';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -25,6 +27,11 @@ function BuyPage() {
 	const match = useRouteMatch();
 	const location = useLocation();
 	const history = useHistory();
+	const [isModalVisible, setIsModalVisible] = useState(false);
+
+	const handleCancel = () => {
+		setIsModalVisible(false);
+	};
 
 	const dispatch = useDispatch();
 
@@ -78,24 +85,30 @@ function BuyPage() {
 			history.push(`/home/buy?tripid=${queryParams.tripid}&date=${queryParams.date}&step=2`);
 		} else if (step === '2') {
 			try {
-				console.log(informationPayment, step);
 				const results = await paymentApi.payment(informationPayment);
-				const action = await deleteTicket();
-				dispatch(action);
-				setLoadingPayment(false);
-				console.log(results, loadingPayment);
 
-				queryParams = {
-					...queryParams,
-					step: 3,
-				};
-				history.push(`/home/buy?tripid=${queryParams.tripid}&date=${queryParams.date}&step=3`);
+				setLoadingPayment(false);
+				setIsModalVisible(true);
+				console.log(results, loadingPayment);
 			} catch (error) {
 				return notification.error({
 					message: 'Error!!!',
 					description: 'tickets was buyed by some other',
 				});
 			}
+		}
+	};
+
+	const onSuccess = async (values) => {
+		if (values) {
+			const action = await deleteTicket();
+			dispatch(action);
+			queryParams = {
+				...queryParams,
+				step: 3,
+			};
+			setIsModalVisible(false);
+			history.push(`/home/buy?tripid=${queryParams.tripid}&date=${queryParams.date}&step=3`);
 		}
 	};
 
@@ -171,6 +184,10 @@ function BuyPage() {
 					)}
 				</Switch>
 			</div>
+
+			<Modal visible={isModalVisible} onCancel={handleCancel} footer={null}>
+				<Paypal queryParams={queryParams} onSuccess={onSuccess} />
+			</Modal>
 		</Layout>
 	);
 }

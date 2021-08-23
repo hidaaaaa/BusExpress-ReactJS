@@ -7,7 +7,7 @@ import ChangePasswordForm from './components/ChangePasswordForm';
 function ChangePassword(props) {
 	const [loading, setLoading] = useState(false);
 	const onChangePassword = async (values) => {
-		loading(true);
+		setLoading(true);
 		try {
 			await authApi.changePassword(values);
 			setLoading(false);

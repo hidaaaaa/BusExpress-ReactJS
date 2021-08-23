@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { BackTop, Layout } from 'antd';
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import Footer from 'components/Footer/Footer';
+import Paypal from 'components/Paypal/Paypal';
 import AuthFeature from 'features/AuthFeature/AuthFeature';
 import BuyTicketFeature from 'features/BuyTicketFeature/BuyTicketFeature';
 import { Redirect, Route, Switch } from 'react-router';

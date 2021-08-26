@@ -6,7 +6,7 @@ import './styles/locationPickerField.scss';
 
 const { Option } = Select;
 function LocationPickerField(props) {
-	const { form, name, label, handle, location } = props;
+	const { form, name, label, handle, location, defaultValue } = props;
 
 	return (
 		<div
@@ -17,6 +17,7 @@ function LocationPickerField(props) {
 			<Controller
 				name={name}
 				control={form.control}
+				defaultValue={defaultValue}
 				render={({ field: { onChange, onBlur, value, name, ref } }) => (
 					<Select
 						bordered={false}
@@ -33,6 +34,7 @@ function LocationPickerField(props) {
 						}}
 						onBlur={onBlur}
 						disabled={location.destination === '' && name === 'DiemDen' && location.origin === ''}
+						defaultValue={defaultValue}
 					>
 						{data.map((item, index) => (
 							<Option

@@ -2,6 +2,7 @@
 
 .slider {
 	margin-top: 2rem;
+	@include boxShadow;
 	@include tabletAndDesktop {
 		display: flex;
 	}
@@ -146,7 +147,7 @@
 
 	&__carouselControl {
 		width: 20%;
-		background: rgba($color: $button-color, $alpha: 0.2);
+		background: rgba($color: $primary-color, $alpha: 1);
 		display: flex;
 		-webkit-flex-direction: column;
 		-ms-flex-direction: column;

@@ -21,27 +21,28 @@ function BuyMainPage(props) {
 				await rs.map((item) => {
 					rs2.findIndex((item2) => {
 						const hoursT = parseInt(item2.GioDi.split(':')[0]);
-						console.log(new Date(item2.NgayDi), currentDate);
-						if (new Date(item2.NgayDi).toString() > currentDate.toString()) {
+						//console.log(item2);
+						const infoTrip = { tripId: item2.MaTX, time: item2.GioDi, date: item2.NgayDi };
+
+						if (new Date(item2.NgayDi).getTime() > currentDate.getTime()) {
 							if (item2.MaTX >= item.MaTX) {
 								const location = (
 									<>
 										{item.DiemDi} <FontAwesomeIcon icon={faArrowCircleRight} /> {item.DiemDen}
 									</>
 								);
-								temp.push({ ...item, ...item2, location });
+								temp.push({ ...item, ...item2, location, infoTrip });
 							}
 						}
 
-						if (new Date(item2.NgayDi).toString() === currentDate.toString() && new Date().getHours() < hoursT) {
-							console.log(new Date().getHours(), hoursT);
+						if (new Date(item2.NgayDi).getTime() === currentDate.getTime() && new Date().getHours() < hoursT) {
 							if (item2.MaTX >= item.MaTX) {
 								const location = (
 									<>
 										{item.DiemDi} <FontAwesomeIcon icon={faArrowCircleRight} /> {item.DiemDen}
 									</>
 								);
-								temp.push({ ...item, ...item2, location });
+								temp.push({ ...item, ...item2, location, infoTrip });
 							}
 						}
 					});

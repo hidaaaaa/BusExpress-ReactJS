@@ -18,10 +18,15 @@ function ListTicketPage({ listTrip, buses, queryParams, handleSumitPrev, handleS
 	const [selectedTags, setSelectedTags] = useState(
 		tickets.tickets === undefined ? [] : [{ ...tickets.tickets, tag: [...tickets.tickets.tag] }]
 	);
-	const [filters, setFilters] = useState({ ...queryParams, time: listTrip[0].GioDi });
+	const [filters, setFilters] = useState({
+		...queryParams,
+		time: queryParams.time !== '' ? queryParams.time : listTrip[0].GioDi,
+	});
 	const [post, setPost] = useState([]);
 	const [loading, setLoading] = useState(true);
 	let tagsData = [...post];
+
+	//console.log(filters);
 
 	useEffect(() => {
 		(async () => {
@@ -30,7 +35,7 @@ function ListTicketPage({ listTrip, buses, queryParams, handleSumitPrev, handleS
 				const bus = listTrip.findIndex((item) => item.GioDi === filters.time);
 				const postDetailed = await busApi.getPostDetailed({ postID: listTrip[bus].MaCX });
 
-				console.log(data);
+				//console.log(data);
 				const seats = [];
 				if (postDetailed[0].LoaiXe === 'BUS') {
 					Array(postDetailed[0].SoLuongGhe)
@@ -173,7 +178,7 @@ function ListTicketPage({ listTrip, buses, queryParams, handleSumitPrev, handleS
 						<Select
 							size={`large`}
 							bordered={false}
-							defaultValue={listTrip[0].GioDi}
+							defaultValue={queryParams.time !== '' ? queryParams.time : listTrip[0].GioDi}
 							onChange={handleChooseTime}
 							className="selectDate"
 						>

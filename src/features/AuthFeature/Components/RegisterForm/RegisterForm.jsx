@@ -88,7 +88,7 @@ function RegisterForm({ onSubmit, loading }) {
 						<FontAwesomeIcon icon={faSpinner} className="loading-icon" /> Loading...
 					</>
 				) : (
-					<>Login</>
+					<>Register</>
 				)}
 			</button>
 		</form>

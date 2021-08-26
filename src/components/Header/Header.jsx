@@ -12,8 +12,8 @@ function Header(props) {
 	const [toggleMobile, setToggleMobile] = useState(false);
 	const [toggleMenu, setToggleMenu] = useState('');
 	const location = useLocation();
-	const loggedInUser = useSelector((state) => state.auth.current);
-	const isLoggedIn = !!loggedInUser.Email;
+	const loggedInUser = useSelector((state) => state.auth.current.rs);
+	const isLoggedIn = !!loggedInUser;
 
 	const handleShowNavbar = () => {
 		setToggleMobile(!toggleMobile);
@@ -55,9 +55,9 @@ function Header(props) {
 						</Link>
 						<div className="choosen"></div>
 					</li>
-					<li className={location.pathname.search('/pricing') > -1 ? 'active' : ''}>
-						<Link to="/pricing" className="header__link ">
-							Pricing
+					<li className={location.pathname.search('/about-us') > -1 ? 'active' : ''}>
+						<Link to="/about-us" className="header__link ">
+							About Us
 						</Link>
 						<div className="choosen"></div>
 					</li>

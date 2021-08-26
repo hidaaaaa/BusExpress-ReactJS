@@ -9,8 +9,9 @@ import './style/authFeature.scss';
 
 function AuthFeature(props) {
 	const match = useRouteMatch();
-	const loggedInUser = useSelector((state) => state.auth.current);
-	const isLoggedIn = !!loggedInUser.Email;
+	const loggedInUser = useSelector((state) => state.auth.current.rs);
+
+	const isLoggedIn = !!loggedInUser;
 
 	return (
 		<Switch>

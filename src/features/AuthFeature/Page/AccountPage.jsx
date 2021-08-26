@@ -14,7 +14,7 @@ import Profile from '../Components/Profile/Profile';
 
 function AccountPage() {
 	const [size] = useWindowSize();
-	const user = useSelector((state) => state.auth.current);
+	const user = useSelector((state) => state.auth.current.rs);
 	const [bookedTickets, setBookedTickets] = useState([]);
 	const match = useRouteMatch();
 	const [loading, setLoading] = useState(true);
@@ -23,14 +23,15 @@ function AccountPage() {
 		(async () => {
 			try {
 				const results = await authApi.bookedTickets(user);
-				const temp = results.map((item) => ({ ...item, NgayDi: item.NgayDi }));
+				console.log(results);
+				const temp = await results.map((item) => ({ ...item, NgayDi: item.NgayDi }));
 
 				await setBookedTickets(temp);
 
 				setLoading(false);
 			} catch (error) {}
 		})();
-	}, [user]);
+	}, []);
 
 	if (loading) return <Loading />;
 

@@ -8,7 +8,7 @@ import InformationForm from '../../Component/InformationForm';
 import './style/informationTicketPage.scss';
 
 function InformationTicketPage({ buses, listTrip, handleSumitPrev, handleSumitNext, queryParams }) {
-	const loggedInUser = useSelector((state) => state.auth.current);
+	const loggedInUser = useSelector((state) => state.auth.current.rs);
 	const tickets = useSelector((state) => state.tickets.tickets.tickets);
 	const [isModalVisible, setIsModalVisible] = useState(false);
 

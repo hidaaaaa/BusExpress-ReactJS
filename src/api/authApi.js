@@ -12,6 +12,7 @@ const authApi = {
 		return await axiosClient.post(url, data);
 	},
 	async bookedTickets(data) {
+		console.log(data);
 		const url = '/user/booked_tickets';
 
 		return await axiosClient.get(url, data);

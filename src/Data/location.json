@@ -14,5 +14,17 @@
 	{
 		"name": "Tien Giang",
 		"value": "TienGiang"
+	},
+	{
+		"name": "Dong Nai",
+		"value": "DongNai"
+	},
+	{
+		"name": "Ha Noi",
+		"value": "HaNoi"
+	},
+	{
+		"name": "Nha Trang",
+		"value": "NhaTrang"
 	}
 ]

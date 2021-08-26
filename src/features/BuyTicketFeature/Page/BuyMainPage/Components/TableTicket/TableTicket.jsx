@@ -37,16 +37,16 @@ function TableTicket({ listBuses }) {
 		},
 		{
 			title: 'Action',
-			dataIndex: 'MaTX',
-			key: 'MaTX',
-			render: (MaTX) => {
-				// const index = listBuses[lis]
-
-				// const isChecked =
-
+			dataIndex: 'infoTrip',
+			key: 'infoTrip',
+			render: (infoTrip) => {
 				return (
 					<Space size="middle">
-						<Button type="text" style={{ fontSize: '1.5rem', color: '#ffffff' }} onClick={() => handleBookTicket(MaTX)}>
+						<Button
+							type="text"
+							style={{ fontSize: '1.5rem', color: '#ffffff' }}
+							onClick={() => handleBookTicket(infoTrip)}
+						>
 							Buy Ticket
 						</Button>
 					</Space>
@@ -57,27 +57,25 @@ function TableTicket({ listBuses }) {
 	const history = useHistory();
 	//console.log(listBuses);
 
-	const handleBookTicket = (MaVeXe) => {
-		const choose = listBuses.find((item) => item.MaTX === MaVeXe);
-		console.log(choose);
-		history.push(`/home/buy?tripid=${choose.MaTX}&date=${formatDate(new Date(choose.NgayDi))}&step=1`);
+	const handleBookTicket = (infoTrip) => {
+		//const choose = listBuses.find((item) => item.MaTX === MaVeXe);
+		//console.log(infoTrip);
+		history.push(
+			`/home/buy?tripid=${infoTrip.tripId}&date=${formatDate(new Date(infoTrip.date))}&time=${infoTrip.time}&step=1`
+		);
 	};
 
 	return (
 		<div className="table" style={{ marginTop: '3.25rem' }}>
 			<Table
 				dataSource={listBuses}
-				style={{
-					overflowX: 'auto',
-					backgroundColor: 'rgba(255, 255, 255, 0.2)',
-					borderRadius: '10px',
-					padding: '1rem 1rem 0 1rem',
-				}}
+				style={{}}
 				pagination={{
 					pageSize: 6,
 					position: ['bottomCenter'],
 				}}
 				columns={columns}
+				className="tableTicket"
 			/>
 		</div>
 	);

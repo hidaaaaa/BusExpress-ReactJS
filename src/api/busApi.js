@@ -31,6 +31,34 @@ const busApi = {
 		const allBuses = await axiosClient.get(url);
 		return allBuses;
 	},
+	async getBuses() {
+		const url = '/buses';
+
+		const allBuses = await axiosClient.get(url);
+		return allBuses;
+	},
+	async createBus(params) {
+		const url = `/create-bus?BienSoXe=${params.BienSoXe}&LoaiXe=${params.LoaiXe}&SoLuongGhe=${params.SoLuongGhe}`;
+
+		const bus = await axiosClient.post(url);
+		return bus;
+	},
+	async changeBus(params) {
+		const url = `/change-bus?BienSoXe=${params.BienSoXe}&LoaiXe=${params.LoaiXe}&SoLuongGhe=${params.SoLuongGhe}`;
+
+		const bus = await axiosClient.post(url);
+		return bus;
+	},
+	async createTrip(params) {
+		const url = `/create-trip?MaTX=${params.MaTX}&DiemDi=${params.DiemDi}&DiemDen=${params.DiemDen}&DonGia=${params.DonGia}`;
+		const trip = await axiosClient.post(url);
+		return trip;
+	},
+	async changeTrip(params) {
+		const url = `/change-trip?MaTX=${params.MaTX}&DiemDi=${params.DiemDi}&DiemDen=${params.DiemDen}&DonGia=${params.DonGia}`;
+		const trip = await axiosClient.post(url);
+		return trip;
+	},
 };
 
 export default busApi;

@@ -84,8 +84,7 @@ function MainPage(props) {
 
 		const currentDate = new Date();
 		currentDate.setHours(0, 0, 0, 0);
-		console.log(listTrip);
-		// const hoursT = parseInt(index.GioDi.split(':')[0]);
+		//console.log(listTrip);// const hoursT = parseInt(index.GioDi.split(':')[0]);
 
 		if (listTrip.length < 1) {
 			return notification.error({

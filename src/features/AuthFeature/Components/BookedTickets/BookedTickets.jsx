@@ -14,7 +14,7 @@ function BookedTickets({ bookedTickets }) {
 	const [listTicket, setListTickets] = useState([...bookedTickets]);
 	const [ticketCancel, setTicketCancel] = useState({});
 
-	const user = useSelector((state) => state.auth.current);
+	const user = useSelector((state) => state.auth.current.rs);
 
 	const columns = [
 		{

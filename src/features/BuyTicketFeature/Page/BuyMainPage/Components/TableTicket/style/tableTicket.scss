@@ -1,23 +1,25 @@
 @import '../../../../../../../assets/styles/all.scss';
 
-.ant-table-thead > tr > th {
-	&:last-child {
-		border-radius: 0 8px 0 0 !important;
-	}
+.ant-table-thead > tr {
+	& > th {
+		background-color: $third-button-color;
+		color: #ffffff;
+		// @include boxShadow;
 
-	&:first-child {
-		border-radius: 8px 0 0 0 !important;
-	}
-}
+		&:last-child {
+			border-radius: 0 8px 0 0 !important;
+		}
 
-.ant-table {
-	background-color: transparent;
-	color: #ffffff;
+		&:first-child {
+			border-radius: 8px 0 0 0 !important;
+		}
+	}
 }
 
 .ant-table-tbody > tr.ant-table-row:hover > td {
 	transition: 1s all;
-	color: #333;
+	//color: #333;
+	background-color: rgba($color: $button-color, $alpha: 0.5);
 
 	&:last-child {
 		@include animated-btn($primary-text-color, $button-color, $primary-text-color, 0px, y-rotate);
@@ -26,6 +28,21 @@
 			& > div > div > button {
 				color: #333 !important;
 			}
+		}
+	}
+}
+
+.tableTicket {
+	@include boxShadow;
+	overflow-x: auto;
+	background-color: rgba(255, 255, 255, 0.1);
+	border-radius: 10px;
+	padding: 1rem 1rem 0 1rem;
+	& > * > * {
+		.ant-table {
+			background-color: transparent;
+			color: #ffffff;
+			min-height: 350px;
 		}
 	}
 }

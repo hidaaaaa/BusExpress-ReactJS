@@ -18,22 +18,25 @@ import { deleteTicket } from './ticketSlice';
 
 function BuyPage() {
 	const tickets = useSelector((state) => state.tickets.tickets.tickets);
-	const loggedInUser = useSelector((state) => state.auth.current);
-	const isLoggedIn = !!loggedInUser.Email;
+	const loggedInUser = useSelector((state) => state.auth.current.rs);
+	const isLoggedIn = !!loggedInUser;
+
+	const dispatch = useDispatch();
+	const match = useRouteMatch();
+	const location = useLocation();
+	const history = useHistory();
+
+	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [loading, setLoading] = useState(true);
 	const [loadingPayment, setLoadingPayment] = useState(true);
 	const [listTrip, setListTrip] = useState({});
 	const [buses, setBuses] = useState([]);
-	const match = useRouteMatch();
-	const location = useLocation();
-	const history = useHistory();
-	const [isModalVisible, setIsModalVisible] = useState(false);
+
+	const [informationPayment, setInformationPayment] = useState('');
 
 	const handleCancel = () => {
 		setIsModalVisible(false);
 	};
-
-	const dispatch = useDispatch();
 
 	let queryParams = useMemo(() => {
 		const params = queryString.parse(location.search);
@@ -42,6 +45,7 @@ function BuyPage() {
 			...params,
 			tripid: params.tripid || '',
 			date: params.date || '',
+			time: params.time || '',
 		};
 	}, [location.search]);
 
@@ -84,11 +88,24 @@ function BuyPage() {
 			};
 			history.push(`/home/buy?tripid=${queryParams.tripid}&date=${queryParams.date}&step=2`);
 		} else if (step === '2') {
+			setInformationPayment(informationPayment);
+			setLoadingPayment(false);
+			setIsModalVisible(true);
+		}
+	};
+
+	const onSuccess = async (values) => {
+		if (values) {
 			try {
 				const results = await paymentApi.payment(informationPayment);
-
-				setLoadingPayment(false);
-				setIsModalVisible(true);
+				const action = await deleteTicket();
+				dispatch(action);
+				queryParams = {
+					...queryParams,
+					step: 3,
+				};
+				setIsModalVisible(false);
+				history.push(`/home/buy?tripid=${queryParams.tripid}&date=${queryParams.date}&step=3`);
 				console.log(results, loadingPayment);
 			} catch (error) {
 				return notification.error({
@@ -96,19 +113,6 @@ function BuyPage() {
 					description: 'tickets was buyed by some other',
 				});
 			}
-		}
-	};
-
-	const onSuccess = async (values) => {
-		if (values) {
-			const action = await deleteTicket();
-			dispatch(action);
-			queryParams = {
-				...queryParams,
-				step: 3,
-			};
-			setIsModalVisible(false);
-			history.push(`/home/buy?tripid=${queryParams.tripid}&date=${queryParams.date}&step=3`);
 		}
 	};
 

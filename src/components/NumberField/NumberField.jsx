@@ -1,8 +1,8 @@
-import { Input } from 'antd';
+import { InputNumber } from 'antd';
 import React from 'react';
 import { Controller } from 'react-hook-form';
 
-function InputField({ form, name, label, defaultValue = '', disabled = false }) {
+function NumberField({ form, name, label }) {
 	return (
 		<div className={`inputField `}>
 			<div className="inputField__title">{label}</div>
@@ -11,8 +11,7 @@ function InputField({ form, name, label, defaultValue = '', disabled = false }) 
 				name={name}
 				control={form.control}
 				render={({ field: { onChange, onBlur, value, name, ref } }) => (
-					<Input
-						defaultValue={defaultValue}
+					<InputNumber
 						size={`large`}
 						className="inputField__input"
 						ref={ref}
@@ -20,7 +19,14 @@ function InputField({ form, name, label, defaultValue = '', disabled = false }) 
 						value={value}
 						onChange={onChange}
 						onBlur={onBlur}
-						disabled={disabled}
+						style={{ width: '100%' }}
+						formatter={(value) => {
+							if (value < 0) {
+								return -value;
+							} else {
+								return value;
+							}
+						}}
 						// error={!!hasError}
 						// helperText={errors[name]?.message}
 					/>
@@ -30,4 +36,4 @@ function InputField({ form, name, label, defaultValue = '', disabled = false }) 
 	);
 }
 
-export default InputField;
+export default NumberField;

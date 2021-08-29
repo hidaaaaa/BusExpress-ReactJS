@@ -8,6 +8,7 @@ function BusesPage(props) {
 	const [loading, setLoading] = useState(true);
 	const handleChangeBus = async (values) => {
 		// call api change
+		console.log(values);
 		if (values.type === 'change') {
 			try {
 				const result = await busApi.changeBus(values);
@@ -19,6 +20,7 @@ function BusesPage(props) {
 						SoLuongGhe: values.SoLuongGhe,
 					};
 					setBuses(temp);
+					setLoading(true);
 					return notification.success({
 						message: 'Add success!!!',
 					});
@@ -34,6 +36,7 @@ function BusesPage(props) {
 				if (result.isAdded) {
 					const temp = buses;
 					setBuses([...temp, { BienSoXe: values.BienSoXe, LoaiXe: values.LoaiXe, SoLuongGhe: values.SoLuongGhe }]);
+					setLoading(true);
 					return notification.success({
 						message: 'Add success!!!',
 					});
@@ -88,7 +91,7 @@ function BusesPage(props) {
 				await setLoading(false);
 			} catch (error) {}
 		})();
-	}, []);
+	}, [loading]);
 
 	return (
 		<div className="table" style={{ marginTop: '3.25rem' }}>

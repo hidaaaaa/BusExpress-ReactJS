@@ -4,7 +4,7 @@ import { Controller } from 'react-hook-form';
 
 const { Option } = Select;
 
-function ComboBoxField({ form, name, label, defaultValue = '' }) {
+function ComboBoxField({ form, name, label, defaultValue = '', data = [] }) {
 	return (
 		<div className={`inputField `}>
 			<div className="inputField__title">{label}</div>
@@ -25,8 +25,11 @@ function ComboBoxField({ form, name, label, defaultValue = '' }) {
 							size={`large`}
 							className="inputField__input"
 						>
-							<Option value="BUS">BUS</Option>
-							<Option value="Xe Du Lịch">Xe du lịch</Option>
+							{data.map((item, index) => (
+								<Option key={index} value={item.value}>
+									{item.name}
+								</Option>
+							))}
 						</Select>
 					</>
 				)}

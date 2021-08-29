@@ -18,6 +18,7 @@ function AccountPage() {
 	const [bookedTickets, setBookedTickets] = useState([]);
 	const match = useRouteMatch();
 	const [loading, setLoading] = useState(true);
+	const [reload, setLoad] = useState(false);
 
 	useEffect(() => {
 		(async () => {
@@ -31,7 +32,11 @@ function AccountPage() {
 				setLoading(false);
 			} catch (error) {}
 		})();
-	}, []);
+	}, [reload]);
+
+	const onReload = (values) => {
+		setLoad(values);
+	};
 
 	if (loading) return <Loading />;
 
@@ -64,7 +69,7 @@ function AccountPage() {
 							<Profile />
 						</Route>
 						<Route path={`${match.url}/booked-tickets`}>
-							<BookedTickets bookedTickets={bookedTickets} />
+							<BookedTickets bookedTickets={bookedTickets} onSubmit={onReload} />
 						</Route>
 						<Route path={`${match.url}/change-password`}>
 							<ChangePassword />

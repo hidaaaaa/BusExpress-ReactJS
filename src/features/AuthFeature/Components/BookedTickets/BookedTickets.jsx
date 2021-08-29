@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { formatDate } from 'utils/formatDate';
 
-function BookedTickets({ bookedTickets }) {
+function BookedTickets({ bookedTickets, onSubmit }) {
 	const [loading, setLoading] = useState(false);
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [listTicket, setListTickets] = useState([...bookedTickets]);
@@ -58,16 +58,24 @@ function BookedTickets({ bookedTickets }) {
 				const index = listTicket.find((item) => item.MaVeXe === MaVeXe);
 				const hoursT = parseInt(index.GioDi.split(':')[0]);
 				let isCantDel = false;
-				if (currentDate === new Date(index.NgayDi)) {
+				console.log('so sanh', currentDate.getTime() === new Date(index.NgayDi).getTime());
+				if (currentDate.getTime() === new Date(index.NgayDi).getTime()) {
+					console.log('bang');
 					if (new Date().getHours() <= hoursT - 4) {
 						isCantDel = true;
 					} else {
 						isCantDel = false;
 					}
 				}
-				if (currentDate > new Date(index.NgayDi)) isCantDel = false;
+				if (currentDate.getTime() > new Date(index.NgayDi).getTime()) {
+					console.log('lon');
+					isCantDel = false;
+				}
 
-				if (currentDate < new Date(index.NgayDi)) isCantDel = true;
+				if (currentDate.getTime() < new Date(index.NgayDi).getTime()) {
+					console.log('be');
+					isCantDel = true;
+				}
 				return (
 					<Space size="middle">
 						<Button type="text" danger onClick={() => handleCancelTicket(MaVeXe)} disabled={!isCantDel}>
@@ -92,7 +100,9 @@ function BookedTickets({ bookedTickets }) {
 			setLoading(false);
 			if (rs.is) {
 				const temp = bookedTickets.filter((item) => item.MaVeXe !== ticketCancel.MaVeXe);
-
+				if (onSubmit) {
+					await onSubmit(true);
+				}
 				setListTickets(temp);
 				setIsModalVisible(false);
 
@@ -149,7 +159,7 @@ function BookedTickets({ bookedTickets }) {
 								<FontAwesomeIcon icon={faSpinner} className="loading-icon" /> Loading...
 							</>
 						) : (
-							<>Login</>
+							<>Delete</>
 						)}
 					</Button>,
 				]}

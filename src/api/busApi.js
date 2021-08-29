@@ -59,6 +59,16 @@ const busApi = {
 		const trip = await axiosClient.post(url);
 		return trip;
 	},
+	async createPost(params) {
+		const url = `/create-post?MaCX=${params.MaCX}&MaTX=${params.MaTX}&BienSoXe=${params.BienSoXe}&NgayDi=${params.NgayDi}&GioDi=${params.GioDi}`;
+		const post = await axiosClient.post(url);
+		return post;
+	},
+	async changePost(params) {
+		const url = `/change-post?MaCX=${params.MaCX}&MaTX=${params.MaTX}&BienSoXe=${params.BienSoXe}&NgayDi=${params.NgayDi}&GioDi=${params.GioDi}`;
+		const post = await axiosClient.post(url);
+		return post;
+	},
 };
 
 export default busApi;

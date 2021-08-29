@@ -20,7 +20,9 @@ function LocationPage(props) {
 				await setLoading(false);
 			} catch (error) {}
 		})();
-	}, []);
+
+		return () => {};
+	}, [loading]);
 
 	const handleChangeLocation = async (values) => {
 		// call api change
@@ -36,6 +38,7 @@ function LocationPage(props) {
 						DonGia: values.DonGia,
 					};
 					setLocations(temp);
+					setLoading(true);
 					return notification.success({
 						message: 'Add success!!!',
 					});
@@ -54,6 +57,7 @@ function LocationPage(props) {
 						...temp,
 						{ MaTX: values.MaTX, DiemDi: values.DiemDi, DiemDen: values.DiemDen, DonGia: values.DonGia },
 					]);
+					setLoading(true);
 					return notification.success({
 						message: 'Add success!!!',
 					});

@@ -3,7 +3,7 @@ import Modal from 'antd/lib/modal/Modal';
 import InputField from 'components/InputField/InputField';
 import LocationPickerField from 'components/LocationPickerField/LocationPickerField';
 import NumberField from 'components/NumberField/NumberField';
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 function LocationForm({ locations, MaTX, onSubmit, type }) {
@@ -15,9 +15,16 @@ function LocationForm({ locations, MaTX, onSubmit, type }) {
 	);
 	const [visible, setVisible] = useState(false);
 	const form = useForm({
-		defaultValues: locationSelected,
-		// resolver: yupResolver(schema),
+		defaultValues: useMemo(() => {
+			return locationSelected;
+		}, [locationSelected]),
 	});
+
+	const { reset } = form;
+
+	useEffect(() => {
+		reset(locationSelected);
+	}, [locationSelected]);
 
 	const showModal = () => {
 		setVisible(true);
@@ -38,16 +45,10 @@ function LocationForm({ locations, MaTX, onSubmit, type }) {
 	};
 
 	const handleSubmit = async (values) => {
-		// console.log(values);
-		if (
-			values.MaTX !== '' &&
-			values.DiemDi !== '' &&
-			values.DiemDen !== '' &&
-			values.DonGia >= 200000 &&
-			!!values.DonGia
-		) {
+		console.log(values);
+		if (!!values.MaTX && !!values.DiemDi && !!values.DiemDen && values.DonGia >= 200000 && !!values.DonGia) {
 			const index = locations.findIndex((item) => item.DiemDi === values.DiemDi && item.DiemDen === values.DiemDen);
-			console.log(values.DiemDi, values.DiemDen);
+
 			if (index > -1) {
 				return notification.error({
 					message: 'Wrong',

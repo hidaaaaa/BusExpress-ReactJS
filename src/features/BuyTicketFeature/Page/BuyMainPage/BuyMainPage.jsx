@@ -25,7 +25,7 @@ function BuyMainPage(props) {
 						const infoTrip = { tripId: item2.MaTX, time: item2.GioDi, date: item2.NgayDi };
 
 						if (new Date(item2.NgayDi).getTime() > currentDate.getTime()) {
-							if (item2.MaTX >= item.MaTX) {
+							if (item2.MaTX === item.MaTX) {
 								const location = (
 									<>
 										{item.DiemDi} <FontAwesomeIcon icon={faArrowCircleRight} /> {item.DiemDen}
@@ -36,7 +36,7 @@ function BuyMainPage(props) {
 						}
 
 						if (new Date(item2.NgayDi).getTime() === currentDate.getTime() && new Date().getHours() < hoursT) {
-							if (item2.MaTX >= item.MaTX) {
+							if (item2.MaTX === item.MaTX) {
 								const location = (
 									<>
 										{item.DiemDi} <FontAwesomeIcon icon={faArrowCircleRight} /> {item.DiemDen}

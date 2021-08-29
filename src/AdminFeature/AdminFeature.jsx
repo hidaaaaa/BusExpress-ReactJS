@@ -26,8 +26,6 @@ function AdminFeature(props) {
 		dispatch(action);
 	};
 
-	console.log(`${match.url}/buses`);
-
 	return (
 		<Layout style={{ minHeight: '100vh' }}>
 			<Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>

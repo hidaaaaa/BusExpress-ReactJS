@@ -89,9 +89,9 @@ function LocationForm({ locations, MaTX, onSubmit, type }) {
 			</Button>
 			<Modal visible={visible} onCancel={handleCancel} footer={null}>
 				<form onSubmit={form.handleSubmit(handleSubmit)} className="loginForm">
-					<div className="loginForm__title">{MaTX === '' ? 'Create' : 'Change'} Bus Info</div>
+					<div className="loginForm__title">{MaTX === '' ? 'Create' : 'Change'} Location Info</div>
 
-					<InputField form={form} name="MaTX" label="Trip ID" disabled={MaTX === '' ? false : true} />
+					<InputField form={form} name="MaTX" label="Location ID" disabled={MaTX === '' ? false : true} />
 
 					<NumberField form={form} name="DonGia" label="Price" />
 

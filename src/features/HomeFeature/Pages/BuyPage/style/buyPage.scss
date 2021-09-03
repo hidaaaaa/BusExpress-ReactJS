@@ -4,11 +4,24 @@
 }
 
 .buyPage {
-	background-image: url('../../../../../assets/images/bacground-01.jpg');
-
+	@include largeDesktop {
+		background-image: url('../../../../../assets/images/desktop.svg');
+	}
+	@include smallDesktop {
+		background-image: url('../../../../../assets/images/desktop.svg');
+	}
+	@include tabletAndDesktop {
+		background-image: url('../../../../../assets/images/tablet.svg');
+	}
+	@include tablet {
+		background-image: url('../../../../../assets/images/tablet.svg');
+	}
+	@include mobile {
+		background-image: url('../../../../../assets/images/mobile.svg');
+	}
 	background-size: cover;
-	background-position: center;
-
+	background-repeat: no-repeat;
+	background-attachment: fixed;
 	padding-top: 5rem;
 	padding-bottom: 3.25rem;
 	padding-left: 10%;

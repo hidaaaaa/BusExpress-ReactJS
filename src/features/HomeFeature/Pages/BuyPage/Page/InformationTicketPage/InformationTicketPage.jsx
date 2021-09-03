@@ -1,7 +1,8 @@
 import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button } from 'antd';
+import { Button, notification } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
+import busApi from 'api/busApi';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import InformationForm from '../../Component/InformationForm';
@@ -15,18 +16,35 @@ function InformationTicketPage({ buses, listTrip, handleSumitPrev, handleSumitNe
 	const handleOk = async () => {
 		setIsModalVisible(false);
 		if (handleSumitNext) {
+			const listTicket = await busApi.getAllTicket();
 			const maCXPos = listTrip.findIndex((item) => item.GioDi === tickets.id);
 			const maCX = listTrip[maCXPos].MaCX;
+			console.log(tickets);
+			let check = false;
+			for (let i = 0; i < tickets.tag.length; i++) {
+				check =
+					listTicket.findIndex((ticketBooked) => {
+						return ticketBooked.MaCX === maCX && ticketBooked.SoGhe === tickets.tag[i].code;
+					}) > -1;
+				if (check) break;
+			}
 
-			const temp = {
-				...information,
-				MaCX: maCX,
-				NgayDat: queryParams.date,
-				Email: loggedInUser.Email,
-				GioiTinh: information.GioiTinh,
-				DonGia: buses[buses.findIndex((item) => item.MaTX === queryParams.tripid)].DonGia,
-			};
-			await handleSumitNext({ step: queryParams.step, informationPayment: temp });
+			if (!check) {
+				const temp = {
+					...information,
+					MaCX: maCX,
+					NgayDat: queryParams.date,
+					Email: loggedInUser.Email,
+					GioiTinh: information.GioiTinh,
+					DonGia: buses[buses.findIndex((item) => item.MaTX === queryParams.tripid)].DonGia,
+				};
+				await handleSumitNext({ step: queryParams.step, informationPayment: temp });
+			} else {
+				return notification.error({
+					message: 'Error!!!',
+					description: 'someone was booked this ticket please choose another ticket',
+				});
+			}
 		}
 	};
 

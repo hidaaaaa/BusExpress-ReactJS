@@ -1,14 +1,52 @@
-import { Button, Space, Table } from 'antd';
-import React from 'react';
+import { Button, DatePicker, Input, Space, Table } from 'antd';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { formatDate } from 'utils/formatDate';
 import { formatPrice } from 'utils/formatMoney';
 import './style/tableTicket.scss';
 
 function TableTicket({ listBuses }) {
+	const [dataSource, setDataSource] = useState(listBuses);
+
+	const [valueLocation, setValueLocation] = useState('');
+	const [valueDate, setValueDate] = useState(null);
+
+	const FilterByLocationInput = (
+		<>
+			<Input
+				placeholder="Location"
+				value={valueLocation}
+				onChange={(e) => {
+					const currValue = e.target.value.toLowerCase();
+					setValueLocation(currValue);
+					const filteredData = listBuses.filter(
+						(entry) => entry.DiemDi.toLowerCase().includes(currValue) || entry.DiemDen.toLowerCase().includes(currValue)
+					);
+					setDataSource(filteredData);
+				}}
+			/>
+		</>
+	);
+
+	const FilterByDateInput = (
+		<DatePicker
+			placeholder="Date Origin"
+			value={valueDate}
+			onChange={(e) => {
+				console.log(e);
+				const currValue = e;
+				setValueDate(currValue);
+				const filteredData = listBuses.filter(
+					(entry) => formatDate(new Date(entry.NgayDi)) === formatDate(new Date(currValue._d))
+				);
+				setDataSource(filteredData);
+			}}
+		/>
+	);
+
 	const columns = [
 		{
-			title: 'Location',
+			title: FilterByLocationInput,
 			dataIndex: 'location',
 			key: 'location',
 			render: (location) => <>{location}</>,
@@ -25,7 +63,7 @@ function TableTicket({ listBuses }) {
 			render: (DonGia) => <>{formatPrice(DonGia)}</>,
 		},
 		{
-			title: 'Date Origin',
+			title: FilterByDateInput,
 			dataIndex: 'NgayDi',
 			key: 'NgayDi',
 			render: (NgayDi) => <>{formatDate(new Date(NgayDi))} </>,
@@ -67,8 +105,25 @@ function TableTicket({ listBuses }) {
 
 	return (
 		<div className="table" style={{ marginTop: '3.25rem' }}>
+			<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+				<div></div>
+				<div style={{ fontSize: '2rem' }}>LIST TICKETS</div>
+				<div>
+					<Button
+						type="primary"
+						danger
+						onClick={() => {
+							setValueDate(null);
+							setValueLocation('');
+							setDataSource(listBuses);
+						}}
+					>
+						reset filter
+					</Button>
+				</div>
+			</div>
 			<Table
-				dataSource={listBuses}
+				dataSource={dataSource}
 				style={{}}
 				pagination={{
 					pageSize: 6,

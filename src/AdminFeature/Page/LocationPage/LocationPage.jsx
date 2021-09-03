@@ -72,7 +72,7 @@ function LocationPage(props) {
 
 	const columns = [
 		{
-			title: 'Trip ID	',
+			title: 'Location ID	',
 			dataIndex: 'MaTX',
 			key: 'MaTX',
 		},

@@ -1,3 +1,4 @@
+import { ConsoleSqlOutlined } from '@ant-design/icons';
 import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Col, notification, Row, Select } from 'antd';
@@ -106,7 +107,7 @@ function ListTicketPage({ listTrip, buses, queryParams, handleSumitPrev, handleS
 				? [...selectedTags[index].tag, tag]
 				: selectedTags[index].tag.filter((t) => t.code !== tag.code);
 
-			if (nextSelectedTags.length === 4) {
+			if (nextSelectedTags.length === 8) {
 				return notification.error({
 					message: 'Error!!!',
 					description: 'just can choose 3 tickets',
@@ -135,13 +136,34 @@ function ListTicketPage({ listTrip, buses, queryParams, handleSumitPrev, handleS
 				const index = selectedTags.findIndex((item) => item.id === filters.time);
 				if (index >= 0) {
 					if (selectedTags[index].tag.length > 0) {
-						const action = await getListTicket({
-							tickets: selectedTags[index],
-							date: queryParams.date,
-							tripid: queryParams.tripid,
-						});
-						dispatch(action);
-						await handleSumitNext({ step: queryParams.step });
+						const listTicket = await busApi.getAllTicket();
+						let check = false;
+						const bus = listTrip.findIndex((item) => item.GioDi === filters.time);
+
+						for (let i = 0; i < selectedTags[index].tag.length; i++) {
+							console.log(selectedTags[index].tag[i].code);
+							check =
+								listTicket.findIndex(
+									(ticketBooked) =>
+										ticketBooked.MaCX === listTrip[bus].MaCX && ticketBooked.SoGhe === selectedTags[index].tag[i].code
+								) > -1;
+
+							if (check) break;
+						}
+						if (!check) {
+							const action = await getListTicket({
+								tickets: selectedTags[index],
+								date: queryParams.date,
+								tripid: queryParams.tripid,
+							});
+							dispatch(action);
+							await handleSumitNext({ step: queryParams.step });
+						} else {
+							return notification.error({
+								message: 'Error!!!',
+								description: 'someone was booked this ticket please choose another ticket',
+							});
+						}
 					} else {
 						return notification.error({
 							message: 'Error!!!',

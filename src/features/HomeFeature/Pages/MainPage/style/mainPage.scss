@@ -1,20 +1,22 @@
 @import '../../../../../assets/styles/all.scss';
 .home {
-	@include largeDesktop {
-		background-image: url('../../../../../assets/images/desktop.svg');
-	}
-	@include smallDesktop {
-		background-image: url('../../../../../assets/images/desktop.svg');
-	}
-	@include tabletAndDesktop {
-		background-image: url('../../../../../assets/images/tablet.svg');
-	}
-	@include tablet {
-		background-image: url('../../../../../assets/images/tablet.svg');
-	}
-	@include mobile {
-		background-image: url('../../../../../assets/images/mobile.svg');
-	}
+	// @include largeDesktop {
+	// 	background-image: url('../../../../../assets/images/desktop.svg');
+	// }
+	// @include smallDesktop {
+	// 	background-image: url('../../../../../assets/images/desktop.svg');
+	// }
+	// @include tabletAndDesktop {
+	// 	background-image: url('../../../../../assets/images/tablet.svg');
+	// }
+	// @include tablet {
+	// 	background-image: url('../../../../../assets/images/tablet.svg');
+	// }
+	// @include mobile {
+	// 	background-image: url('../../../../../assets/images/mobile.svg');
+	// }
+
+	background-image: url('../../../../../assets/images/bacground-01.jpg');
 
 	background-size: cover;
 	background-repeat: no-repeat;
@@ -44,4 +46,7 @@
 			width: calc(100% - 4%);
 		}
 	}
+}
+
+#booking {
 }

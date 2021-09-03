@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form';
 function TripsForm({ MaCX, trips, onSubmit, type, buses = [], locations = [] }) {
 	const [visible, setVisible] = useState(false);
 	const tripsSelected = MaCX === '' ? '' : trips.find((item) => item.MaCX === MaCX);
+	// const [date, setdate] = useState(tripsSelected.);
 	//console.log(tripsSelected);
 
 	const form = useForm({
@@ -33,7 +34,10 @@ function TripsForm({ MaCX, trips, onSubmit, type, buses = [], locations = [] }) 
 		setVisible(false);
 	};
 
+	const handleChangeDate = (values) => {};
+
 	const handleSubmit = async (values) => {
+		console.log(values);
 		if (!!values.MaCX && !!values.NgayDi && !!values.BienSoXe && !!values.MaTX && !!values.GioDi) {
 			if (
 				type === 'create' &&
@@ -88,7 +92,7 @@ function TripsForm({ MaCX, trips, onSubmit, type, buses = [], locations = [] }) 
 
 					<div className={`inputField `}>
 						<div className="inputField__title">Date Origin</div>
-						<DatePickerField form={form} name="NgayDi" />
+						<DatePickerField form={form} name="NgayDi" handleChangeDate={handleChangeDate} />
 					</div>
 
 					<ComboBoxField form={form} name="GioDi" label="Time Origin" data={time} />

@@ -34,8 +34,8 @@ function ForgotForm(props) {
 			console.log(error);
 			setLoading(false);
 			return notification.error({
-				message: 'Change password fail',
-				// description: error.msg,
+				message: 'Reset password fail',
+				description: 'Cant find this email in our system',
 			});
 		}
 	};

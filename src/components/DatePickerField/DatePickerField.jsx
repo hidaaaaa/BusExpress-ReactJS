@@ -7,7 +7,12 @@ import './styles/datePickerField.scss';
 DatePickerField.propTypes = {};
 
 function DatePickerField(props) {
-	const { form, name } = props;
+	const { form, name, handleChangeDate } = props;
+	const onChangeDate = async (e) => {
+		if (handleChangeDate) {
+			console.log(e._d);
+		}
+	};
 	return (
 		<Controller
 			name={name}
@@ -18,7 +23,10 @@ function DatePickerField(props) {
 					ref={ref}
 					name={name}
 					value={value}
-					onChange={onChange}
+					onChange={(e) => {
+						onChangeDate(e);
+						onChange(e);
+					}}
 					onBlur={onBlur}
 					className="datePickerField"
 					disabledDate={(current) => {

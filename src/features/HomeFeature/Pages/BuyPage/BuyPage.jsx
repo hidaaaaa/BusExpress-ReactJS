@@ -190,7 +190,7 @@ function BuyPage() {
 			</div>
 
 			<Modal visible={isModalVisible} onCancel={handleCancel} footer={null}>
-				<Paypal queryParams={queryParams} onSuccess={onSuccess} />
+				<Paypal queryParams={queryParams} onSuccess={onSuccess} informationPayment={informationPayment} />
 			</Modal>
 		</Layout>
 	);

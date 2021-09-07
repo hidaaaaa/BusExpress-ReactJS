@@ -24,7 +24,7 @@ function AccountPage() {
 		(async () => {
 			try {
 				const results = await authApi.bookedTickets(user);
-				console.log(results);
+				console.log(results, 'co goi');
 				const temp = await results.map((item) => ({ ...item, NgayDi: item.NgayDi }));
 
 				await setBookedTickets(temp);
@@ -35,6 +35,7 @@ function AccountPage() {
 	}, [reload]);
 
 	const onReload = (values) => {
+		console.log('vo day', values);
 		setLoad(values);
 	};
 

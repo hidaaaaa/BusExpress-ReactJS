@@ -52,7 +52,7 @@ function LocationForm({ locations, MaTX, onSubmit, type }) {
 			if (index > -1) {
 				return notification.error({
 					message: 'Wrong',
-					description: 'Invalid values',
+					description: 'Invalid values1',
 				});
 			} else {
 				if (type === 'create' && locations.findIndex((item) => item.MaTX === values.MaTX) === -1) {

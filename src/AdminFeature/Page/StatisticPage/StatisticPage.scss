@@ -1,0 +1,23 @@
+.total {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 1rem 2rem 1rem;
+
+	&__revenue {
+		background-color: tomato;
+		width: 45%;
+		margin: auto;
+		padding: 1.5rem 1rem;
+		border-radius: 20px;
+	}
+
+	&__ticket {
+		background-color: green;
+		width: 48%;
+		margin: auto;
+		padding: 1.5rem 1rem;
+		border-radius: 20px;
+	}
+}

@@ -29,6 +29,7 @@ function LocationPage(props) {
 		if (values.type === 'change') {
 			try {
 				const result = await busApi.changeTrip(values);
+
 				if (result.isAdded) {
 					const temp = locations;
 					temp[temp.findIndex((item) => item.MaTX === values.MaTX)] = {
@@ -51,6 +52,7 @@ function LocationPage(props) {
 		} else {
 			try {
 				const result = await busApi.createTrip(values);
+				console.log(result);
 				if (result.isAdded) {
 					const temp = locations;
 					setLocations([

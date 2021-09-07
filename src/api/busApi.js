@@ -37,6 +37,17 @@ const busApi = {
 		const allTicket = await axiosClient.get(url);
 		return allTicket;
 	},
+	async getTotalRevenue() {
+		const url = '/total-revenue';
+		const allTicket = await axiosClient.get(url);
+		return allTicket;
+	},
+	async getAllTicketEmail() {
+		const url = '/all-ticket-mail';
+
+		const allTicket = await axiosClient.get(url);
+		return allTicket;
+	},
 	async getBuses() {
 		const url = '/buses';
 

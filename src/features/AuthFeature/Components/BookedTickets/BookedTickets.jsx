@@ -14,6 +14,8 @@ function BookedTickets({ bookedTickets, onSubmit }) {
 	const [listTicket, setListTickets] = useState([...bookedTickets]);
 	const [ticketCancel, setTicketCancel] = useState({});
 
+	console.log(bookedTickets);
+
 	const user = useSelector((state) => state.auth.current.rs);
 
 	const columns = [
@@ -58,9 +60,9 @@ function BookedTickets({ bookedTickets, onSubmit }) {
 				const index = listTicket.find((item) => item.MaVeXe === MaVeXe);
 				const hoursT = parseInt(index.GioDi.split(':')[0]);
 				let isCantDel = false;
-				console.log('so sanh', currentDate.getTime() === new Date(index.NgayDi).getTime());
+				// console.log('so sanh', currentDate.getTime() === new Date(index.NgayDi).getTime());
 				if (currentDate.getTime() === new Date(index.NgayDi).getTime()) {
-					console.log('bang');
+					// console.log('bang');
 					if (new Date().getHours() <= hoursT - 4) {
 						isCantDel = true;
 					} else {
@@ -68,12 +70,12 @@ function BookedTickets({ bookedTickets, onSubmit }) {
 					}
 				}
 				if (currentDate.getTime() > new Date(index.NgayDi).getTime()) {
-					console.log('lon');
+					// console.log('lon');
 					isCantDel = false;
 				}
 
 				if (currentDate.getTime() < new Date(index.NgayDi).getTime()) {
-					console.log('be');
+					// console.log('be');
 					isCantDel = true;
 				}
 				return (
@@ -101,7 +103,7 @@ function BookedTickets({ bookedTickets, onSubmit }) {
 			if (rs.is) {
 				const temp = bookedTickets.filter((item) => item.MaVeXe !== ticketCancel.MaVeXe);
 				if (onSubmit) {
-					await onSubmit(true);
+					await onSubmit(ticketCancel.MaVeXe);
 				}
 				setListTickets(temp);
 				setIsModalVisible(false);

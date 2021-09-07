@@ -2,7 +2,8 @@ import React, { useRef } from 'react';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-function Paypal({ onSuccess }) {
+function Paypal({ onSuccess, informationPayment }) {
+	console.log(informationPayment);
 	const paypal = useRef();
 
 	useEffect(() => {
@@ -16,7 +17,7 @@ function Paypal({ onSuccess }) {
 								description: 'BUS_EXPRESS',
 								amount: {
 									current_code: 'USD',
-									value: 4000.0,
+									value: parseInt((informationPayment.SLGhe.length * informationPayment.DonGia) / 23000),
 								},
 							},
 						],

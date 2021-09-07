@@ -5,6 +5,7 @@ import Modal from 'antd/lib/modal/Modal';
 import busApi from 'api/busApi';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { formatDate } from 'utils/formatDate';
 import InformationForm from '../../Component/InformationForm';
 import './style/informationTicketPage.scss';
 
@@ -12,6 +13,13 @@ function InformationTicketPage({ buses, listTrip, handleSumitPrev, handleSumitNe
 	const loggedInUser = useSelector((state) => state.auth.current.rs);
 	const tickets = useSelector((state) => state.tickets.tickets.tickets);
 	const [isModalVisible, setIsModalVisible] = useState(false);
+	const [information, setInformation] = useState({
+		SLGhe: tickets.tag.map((item) => item.code),
+		TenKH: loggedInUser.TenKH,
+		SDT: loggedInUser.SDT,
+		DiaChi: loggedInUser.DiaChi,
+		GioiTinh: loggedInUser.GioiTinh,
+	});
 
 	const handleOk = async () => {
 		setIsModalVisible(false);
@@ -33,7 +41,7 @@ function InformationTicketPage({ buses, listTrip, handleSumitPrev, handleSumitNe
 				const temp = {
 					...information,
 					MaCX: maCX,
-					NgayDat: queryParams.date,
+					NgayDat: formatDate(new Date()),
 					Email: loggedInUser.Email,
 					GioiTinh: information.GioiTinh,
 					DonGia: buses[buses.findIndex((item) => item.MaTX === queryParams.tripid)].DonGia,
@@ -51,14 +59,6 @@ function InformationTicketPage({ buses, listTrip, handleSumitPrev, handleSumitNe
 	const handleCancel = () => {
 		setIsModalVisible(false);
 	};
-
-	const [information, setInformation] = useState({
-		SLGhe: tickets.tag.map((item) => item.code),
-		TenKH: loggedInUser.TenKH,
-		SDT: loggedInUser.SDT,
-		DiaChi: loggedInUser.DiaChi,
-		GioiTinh: loggedInUser.GioiTinh,
-	});
 
 	const handleSubmit = (values) => {
 		setInformation(values);

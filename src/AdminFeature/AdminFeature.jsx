@@ -1,4 +1,11 @@
-import { DesktopOutlined, FileOutlined, PieChartOutlined, UserOutlined } from '@ant-design/icons';
+import {
+	CiCircleTwoTone,
+	DesktopOutlined,
+	FileOutlined,
+	PieChartOutlined,
+	SlackSquareOutlined,
+	UserOutlined,
+} from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import { logout } from 'features/authSlice';
 import React, { useState } from 'react';
@@ -6,6 +13,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import BusesPage from './Page/BusesPage/BusesPage';
 import LocationPage from './Page/LocationPage/LocationPage';
+import StatisticPage from './Page/StatisticPage/StatisticPage';
+import TicketsPage from './Page/TicketsPage/TicketsPage';
 import TripsPage from './Page/TripsPage/TripsPage';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -44,6 +53,12 @@ function AdminFeature(props) {
 					<Menu.Item key="9" icon={<FileOutlined />}>
 						<Link to={`${match.url}/trips`}>trips</Link>
 					</Menu.Item>
+					<Menu.Item key="10" icon={<CiCircleTwoTone />}>
+						<Link to={`${match.url}/tickets`}>Tickets</Link>
+					</Menu.Item>
+					<Menu.Item key="11" icon={<SlackSquareOutlined />}>
+						<Link to={`${match.url}/statistic`}>statistic</Link>
+					</Menu.Item>
 				</Menu>
 			</Sider>
 			<Layout className="site-layout">
@@ -62,6 +77,12 @@ function AdminFeature(props) {
 						</Route>
 						<Route path={`${match.url}/trips`}>
 							<TripsPage />
+						</Route>
+						<Route path={`${match.url}/tickets`}>
+							<TicketsPage />
+						</Route>
+						<Route path={`${match.url}/statistic`}>
+							<StatisticPage />
 						</Route>
 					</Switch>
 				</Content>
